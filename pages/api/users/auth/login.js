@@ -63,8 +63,9 @@ const login = async (req, res) => {
     if (statusHttp === httpStatus.OK) {
         res.setHeader('location', '/')
     }
-    const cookieString = strCookie('auth', token, cookieOptions.maxAge)
+    const cookieString = strCookie('auth', token)
     res.setHeader('Set-Cookie', cookieString)
     res.status(statusHttp).json(responseJson(statusHttp === httpStatus.OK, { user }, statusHttp, error))
 }
+// noinspection JSUnusedGlobalSymbols
 export default login
