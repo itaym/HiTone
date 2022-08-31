@@ -3,8 +3,9 @@ import { TIME_UNITS } from '@/src/enumerators'
 const PUBLIC_FILE = /\.(.*)$/
 
 const cookieOptions = {
+    expires: new Date(new Date().valueOf() + TIME_UNITS.YEAR),
     httpOnly: false,
-    maxAge: TIME_UNITS.YEAR * 120,
+    maxAge: TIME_UNITS.YEAR,
     path: "/",
     sameSite: "Strict",
     secure: process.env.NODE_ENV === "production",

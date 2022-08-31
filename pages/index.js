@@ -1,12 +1,10 @@
-import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from 'next-i18next'
-import { useEffect, useState } from "react";
 import TopMenu from '@/components/TopMenu'
 
-export default function Home(props) {
+export default function Home() {
   const { t } = useTranslation('common')
   return (
       <>

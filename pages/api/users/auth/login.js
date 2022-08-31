@@ -7,8 +7,9 @@ import { TIME_UNITS } from '@/src/enumerators'
 import { sha512 } from '@/src/utils'
 
 const cookieOptions = {
+    expires: new Date(new Date().valueOf() + TIME_UNITS.YEAR),
     httpOnly: true,
-    maxAge: TIME_UNITS.YEAR * 120,
+    maxAge: TIME_UNITS.YEAR,
     path: "/",
     sameSite: "Strict",
     secure: process.env.NODE_ENV === "production",
