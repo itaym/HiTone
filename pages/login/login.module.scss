@@ -1,0 +1,16 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+.hold-form {
+  margin: 0 auto;
+  text-align: var(--text-align-left);
+}
+.loginError {
+  color: var(--color-error);
+  display: inline-block;
+  font-size: var(--font-size-regular);
+  font-weight: bold;
+  text-align: var(--text-align-right);
+}

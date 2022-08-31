@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/components/*": ["src/components/*"],
+      "@/enumerators/*": ["src/enumerators/*"],
+      "@/middlewares/*": ["src/middlewares/*"],
+      "@/redux/*": ["src/redux/*"],
+      "@/seo/*": ["src/seo/*"],
+      "@/src/*": ["src/*"],
+      "@/utils/*": ["src/utils/*"],
+      "@/yupSchemas/*": ["src/yupSchemas/*"]
+    }
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "globals": {
+    "--- EXCLUDE TRANSLATION ---": "-",
+    "date_format": "dd/MM/yyyy",
+    "direction": "rtl",
+    "locale": "he"
+  },
+  "components": {
+    "header": {
+
+    },
+    "footer": {
+
+    },
+    "TopMenu": {
+      "about": "קצת עלינו",
+      "contact": "צור קשר",
+      "home": "עמוד הבית",
+      "join": "הצטרף למשפחת HiTone",
+      "login": "כניסה",
+      "logout": "יציאה"
+    }
+  },
+  "errors": {
+    "user_cannot_be_created": "שם המשתמש הזה כבר קיים",
+    "user_was_not_found": "אימייל ו/או סיסמא שגויים"
+  },
+  "pages": {
+    "home": {
+      "title": "ברוך הבא לעולם של HiTone"
+    },
+    "login": {
+      "login_button": "יאללה, כנס",
+      "sub-title": "צור, ערוך או נהל את הHiTones שלך",
+      "title": "ברוכים השבים"
+    },
+    "registration": {
+      "join_button": "הצטרף אלינו !!!",
+      "sub-title": "צור, ערוך או נהל את הHiTones שלך",
+      "title": "הצטרף למשפחת HiTone"
+    }
+  },
+  "yup": {
+    "birth_date": "תאריך לידה",
+    "email": "אימייל",
+    "email_is_required": "האימייל הוא שדה חובה",
+    "field_is_at_least": "הכנס לפחות {{number}} תווים",
+    "field_is_required": "זהו שדה שחובה למלא",
+    "field_is_the_most": "הכנס לכל היותר {{number}} תווים",
+    "first_name": "שם פרטי",
+    "invalid_email": "אימייל לא תקין",
+    "last_name": "שם משפחה",
+    "login": "יאללה, כנס",
+    "maximum_date": "התאריך לא יכול להיות מאוחר מ-{{date}}",
+    "middle_name": "שם אמצעי",
+    "minimum_date": "התאריך לא יכול להיות מוקדם מי-{{date}}",
+    "not_found" : "משתמש כזה לא נמצא",
+    "password": "סיסמא",
+    "password_is_required": "הסיסמא היא שדה חובה",
+    "password_link": "קרא על מבנה הסיסמא, הקלק כאן",
+    "password_must_match": "הסיסמא אינה תואמת",
+    "password_rules": "הסיסמא אינה עומדת בדרישות המערכת",
+    "password_too_long": "הסיסמא היא לכל היותר 24 תווים",
+    "password_too_short": "הסיסמא היא לכל היפחות 8 תווים",
+    "password_verify": "אימות סיסמא"
+  }
+}

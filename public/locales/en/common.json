@@ -1,0 +1,67 @@
+{
+  "globals": {
+    "--- EXCLUDE TRANSLATION ---": "-",
+    "date_format": "yyyy-MM-dd",
+    "direction": "ltr",
+    "locale": "en"
+  },
+  "components": {
+    "header": {
+
+    },
+    "footer": {
+
+    },
+    "TopMenu": {
+      "about": "About",
+      "contact": "Contact Us",
+      "home": "Home",
+      "join": "Join HiTone family",
+      "login": "Sign-in",
+      "logout": "Sign-out"
+    }
+  },
+  "errors": {
+    "user_cannot_be_created": "The user already exists",
+    "user_was_not_found": "Wrong email and/or password"
+  },
+  "pages": {
+    "home": {
+      "title": "Home Hello World"
+    },
+    "login": {
+      "login_button": "Sign-In",
+      "sub-title": "Create new, Edit and manage your HiTones",
+      "title": "Sign-In"
+    },
+    "registration": {
+      "join_button": "Join us !!!",
+      "sub-title": "Create new, Edit and manage your HiTones",
+      "title": "Join HiTone Family"
+    }
+  },
+  "yup": {
+    "birth_date": "Birth date",
+    "email": "Email",
+    "email_is_required": "Email is required",
+    "field_is_at_least": "This field is at least {{number}} characters",
+    "field_is_required": "This field is required",
+    "field_is_the_most": "This field is the most {{number}} characters",
+    "first_name": "First name",
+    "invalid_email": "Invalid email",
+    "last_name": "Last name",
+    "login": "Login",
+    "maximum_date": "Date cannot be larger then {{date}}",
+    "middle_name": "Middle name",
+    "minimum_date": "Date cannot be smaller then {{date}}",
+    "not_found" : "A user with those credentials was not found!",
+    "password": "Password",
+    "password_is_required": "Password is required",
+    "password_link": "Read about password rules, click here",
+    "password_must_match": "Password must match",
+    "password_rules": "Password does not stand with requirements",
+    "password_too_long": "Password should be at most 24 characters",
+    "password_too_short": "Password should be at least 8 characters",
+    "password_verify": "Verify password"
+  }
+}

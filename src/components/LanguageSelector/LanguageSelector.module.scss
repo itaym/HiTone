@@ -1,0 +1,27 @@
+.select {
+  background-color: transparent;
+  border-radius: 999px;
+  border: 2px solid black;
+  color-scheme: dark;
+  font-size: var(--font-size-regular);
+  font-weight: 900;
+  height: 48px;
+  margin: 0 24px;
+  padding: 10px;
+  position: relative;
+  text-transform: uppercase;
+  top: -14px;
+  width: 92px;
+  optgroup {
+    background: black;
+    font-size: 6px;
+  }
+  option {
+    font-size: var(--font-size-regular);
+    font-weight: 900;
+    background: black;
+    &[class=selected] {
+      color: var(--color-orange);
+    }
+  }
+}

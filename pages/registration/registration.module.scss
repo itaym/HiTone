@@ -1,0 +1,38 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+.hold-form {
+  margin: 0 auto;
+  text-align: var(--text-align-left);
+}
+.form {
+  .fieldError,
+  .loginError {
+    color: var(--color-error);
+    font-size: var(--font-size-regular);
+    font-weight: bold;
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+  .loginError {
+    text-align: var(--text-align-right);
+  }
+  button {
+    grid-column-start: 2;
+    grid-column-end: 3;
+  }
+  input {
+    grid-column-start: 2;
+    grid-column-end: 3;
+  }
+  label {
+    grid-column-start: 1;
+    line-height: 38px;
+  }
+  display: grid;
+  grid-template-columns: 40% 60%;
+  grid-template-rows: auto;
+  grid-row-gap: 12px;
+}

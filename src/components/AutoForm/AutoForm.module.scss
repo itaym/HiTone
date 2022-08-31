@@ -1,0 +1,20 @@
+.form {
+  input {
+    width: 200px;
+  }
+  button[type=submit] {
+    grid-column-start: -1;
+    grid-column-end: -3;
+    grid-row-start: -1;
+  }
+  &__error {
+    color: var(--color-error);
+    display: inline-block;
+    font-size: var(--font-size-regular);
+    font-weight: bold;
+    text-align: var(--text-align-right);
+  }
+
+  grid-column-gap: var(--form-grid-column-gap);
+  grid-row-gap: var(--form-grid-row-gap);
+}

@@ -1,0 +1,25 @@
+:root {
+  --color-orange: #ffa500;
+  --color-red: #ff0000;
+  --color-error: #d63737;
+  --bg-black-transparent: rgba(0,0,0,0.4);
+  --bg-black-input: rgba(70, 90, 126, 0.4);
+  --bg-black: rgba(0,0,0,0.8);
+  --border-color: rgba(67, 67, 67, 0.5);
+  --font-size-bigger: 32px;
+  --font-size-biggest: 48px;
+  --font-size-regular: 16px;
+  --form-grid-column-gap: 12px;
+  --form-grid-row-gap: 12px;
+  --h1-margin: 24px 0 0;
+  --title-margin: 48px;
+
+//  css rtl ltr variables
+  --text-align-left: left;
+  --text-align-right: right;
+
+  [dir=rtl] {
+    --text-align-left: right;
+    --text-align-right: left;
+  }
+}
