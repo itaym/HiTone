@@ -57,11 +57,13 @@ Yup.addMethod(Yup.MixedSchema, 'oneOfSchemas', function (schemas) {
 
 export const _yupLoginSchema = (t) => (Yup.object().shape({
     email: Yup.string()
+        .default('')
         .email(t('yup.invalid_email'))
         .label(t('yup.email'))
         .meta({ id: 'email', name: 'email', type: 'email', where: { column: 1, row: 1 }})
         .required(t('yup.email_is_required')),
     password: Yup.string()
+        .default('')
         .label(t('yup.password'))
         .matches(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}/, 'yup.password_rules')
         .max(24, t('yup.password_too_long'))
