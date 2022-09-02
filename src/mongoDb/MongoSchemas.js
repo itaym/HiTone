@@ -3,7 +3,7 @@ module.exports =  {
         validator: {
             $jsonSchema: {
                 bsonType: "object",
-                required: [ "name", "password" ],
+                required: [ "name", "password", ],
                 properties: {
                     name: {
                         bsonType: "string",
@@ -41,23 +41,23 @@ module.exports =  {
         validator: {
             $jsonSchema: {
                 bsonType: "object",
-                required: [ "firstName", "lastName", "birthDate", "userId" ],
+                required: [ "firstName", "lastName", "birthDate", "userId", ],
                 properties: {
                     firstName: {
                         bsonType: "string",
                         minLength: 2,
                         maxLength: 24,
-                        description: "must be a string and is required"
+                        description: "The user first name, and is required"
                     },
                     lastName: {
                         bsonType: "string",
                         minLength: 2,
                         maxLength: 24,
-                        description: "must be a string and is required"
+                        description: "The user last name, and is required"
                     },
                     birthDate: {
                         bsonType: "date",
-                        description: "must be a bson date and is required"
+                        description: "The user birth date, and is required"
                     },
                     userId: {
                         bsonType: "objectId",
@@ -67,17 +67,21 @@ module.exports =  {
             }
         }
     },
-    buckets : {
+    resetPassword : {
         validator: {
             $jsonSchema: {
                 bsonType: "object",
-                required: [ "base64", "password", "encryptedKey", "data" ],
+                required: [ "createdAt", "name", "password", ],
                 properties: {
-                    base64: {
+                    name: {
                         bsonType: "string",
-                        minLength: 65,
-                        maxLength: 65,
-                        description: "must be a string (65 characters) and is required."
+                        minLength: 3,
+                        maxLength: 24,
+                        description: "The user name (email), and is required"
+                    },
+                    createdAt: {
+                        bsonType: "date",
+                        description: "Must be a new Date and is required"
                     },
                     password: {
                         bsonType: "object",
@@ -87,24 +91,16 @@ module.exports =  {
                                 bsonType: "string",
                                 minLength: 128,
                                 maxLength: 128,
-                                description: "must be a string (128 characters) and is required."
+                                description: "must be a string and is required."
                             },
                             hash: {
                                 bsonType: "string",
                                 minLength: 128,
                                 maxLength: 128,
-                                "description": "must be a string (128 characters) and is required."
+                                "description": "must be a string and is required."
                             }
                         }
-                    },
-                    encryptedKey: {
-                        bsonType: "binData",
-                        description: "must be binary data and is required."
-                    },
-                    data: {
-                        bsonType: "string",
-                        description: "must be a string and is required."
-                    },
+                    }
                 }
             }
         }
