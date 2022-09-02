@@ -1,5 +1,6 @@
 import { MongoClient } from 'mongodb'
 import schemas from '@/src/MongoDb/MongoSchemas'
+import indices from '@/src/MongoDb/MongoIndices'
 import {
     dateFromObjectId,
     genRandomString,
@@ -8,7 +9,7 @@ import {
 } from '@/src/utils'
 import { TIME_UNITS } from '@/src/enumerators'
 
-// noinspection JSUnresolvedVariable
+// noinspection JSUnresolvedVariable,JSUnusedGlobalSymbols
 class MongoDb {
 
     _isConnected = false
@@ -23,8 +24,11 @@ class MongoDb {
     Methods implementations
     -------------------- */
     async _addUser(name, password, data) {
-        const userName = name.toLowerCase()
         await this._verifyConnection()
+        if (!name || !password) {
+            throw new Error('No user name or password')
+        }
+        const userName = name.toLowerCase()
 
         const user = await this.getUser(userName)
         if (user) {
@@ -41,6 +45,25 @@ class MongoDb {
         newData.userId = result.insertedId
         await this._db.collection('users_details').insertOne(newData)
         return await this._getUser(userName)
+    }
+    async _addResetPassword(name, password) {
+        await this._verifyConnection()
+        const userName = name.toLowerCase()
+
+        const user = await this.getUser(userName)
+        if (!user) {
+            throw {message: 'User doesn\'t exist'}
+        }
+        const salt = genRandomString(128)
+        const passObject = sha512( password, salt)
+
+        const resetPassword = {
+            createdAt: new Date(),
+            name: userName,
+            password: passObject
+        }
+        const result = await this._db.collection('resetPassword').insertOne(resetPassword)
+        return await this._getResetPassword(result.insertedId)
     }
     async _close() {
         if (this._isConnected) {
@@ -68,18 +91,27 @@ class MongoDb {
 
         const collections = await this._db.listCollections().toArray() || []
         const colsNames = collections.map((element) => element.name)
-        const NOT_FOUND = -1
+        const schemaNames = Object.keys(schemas)
 
-        for (let colName of colsNames) {
-            await this._db.createCollection(colName, schemas[colName])
-        }
-        if (colsNames.indexOf('users') === NOT_FOUND) {
-            await this._createDefaultUser()
+        for (let name of schemaNames) {
+            if (!colsNames.includes(name)) {
+                try {
+                     await this._db.createCollection(name, schemas[name]);
+                    if (indices[name]) {
+                        await this.db.collection(name).createIndex(indices[name].field, indices[name].options)
+                    }
+                    if (name === 'users') {
+                        await this._createDefaultUser()
+                    }
+                }
+                catch (e) {
+                    console.log(e)
+                }
+            }
         }
     }
     async _createDefaultUser() {
         await this._verifyConnection()
-        debugger
         const collectionUsers = await this._db.collection('users')
         // noinspection JSUnresolvedFunction
         const users = await collectionUsers.find({}).toArray()
@@ -93,11 +125,13 @@ class MongoDb {
         await this._verifyConnection()
         await this._db.collection('users').deleteOne({ name })
     }
+    async _getResetPassword(_id) {
+        await this._verifyConnection()
+        return await this._db.collection('users').findOne({ _id })
+     }
     async _getUser(name = Math.random() + '') {
         await this._verifyConnection()
-        const u = await this._db.collection('users').findOne({name})
-        console.log(u, name, name.length)
-        return u
+        return await this._db.collection('users').findOne({name})
     }
     async _getUsers() {
         await this._verifyConnection()
@@ -117,7 +151,11 @@ class MongoDb {
         if(!user) {
             throw {message: 'User was not found'}
         }
-        await this._db.collection('users').updateOne({_id: user._id}, {$set: {lastLogin: new Date()}})
+        await this._updateUser(user._id, { lastLogin: new Date() })
+    }
+    async _updateUser(objectId, data) {
+        await this._verifyConnection()
+        await this._db.collection('users').updateOne({ _id: objectId },{ $set: data } )
     }
     async _verifyConnection() {
         if(this._isConnected) return this._isConnected
@@ -152,6 +190,9 @@ class MongoDb {
     /* --------------------
     Methods
     -------------------- */
+    async addResetPassword(name = Math.random() + '', password) {
+        return await this._addResetPassword(name, password)
+    }
     async addUser(name, password, data) {
         return await this._addUser(name, password, data)
     }
@@ -167,6 +208,9 @@ class MongoDb {
     async delUser(name) {
         return await this._delUser(name)
     }
+    async getResetPassword(objectId) {
+        return await this._getResetPassword(objectId)
+    }
     async getUser(name) {
         return await this._getUser(name)
     }
@@ -176,11 +220,14 @@ class MongoDb {
     async setLastLogin(name) {
         return await this._setLastLogin(name)
     }
+    async updateUser(objectId, data) {
+        return await this._updateUser(objectId, data)
+    }
     async verifyConnection() {
         return await this._verifyConnection()
     }
 }
-if (!process._mongo_db) {
-    process._mongo_db = new MongoDb()
+if (!process['_mongo_db']) {
+    process['_mongo_db'] = new MongoDb()
 }
-module.exports = process._mongo_db || new MongoDb()
+module.exports = process['_mongo_db'] || new MongoDb()
