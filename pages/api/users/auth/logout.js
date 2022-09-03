@@ -13,7 +13,7 @@ const logout = (req, res) => {
             expiresIn: TIME_UNITS.YEAR * 120 / TIME_UNITS.SECOND,
         }
     )
-    const cookieString = strCookie('auth', token, TIME_UNITS.YEAR * 120)
+    const cookieString = strCookie('auth', token)
 
     res.setHeader('location', '/')
     res.setHeader('Set-Cookie', cookieString)

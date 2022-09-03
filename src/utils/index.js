@@ -3,6 +3,7 @@ import _combineReducersWithRoot  from './combineReducersWithRoot'
 import _dateFromObjectId from '@/utils/dateFromObjectId'
 import _fetchApi from '@/utils/./fetchApi'
 import _genRandomString from '@/utils/genRandomString'
+import _getCookieOptions from './getCookieOptions'
 import _getUserFromRequest from '@/utils/getUserFromRequest'
 import _isFulfilledAction from '@/utils/isFulfilledAction'
 import _isPendingAction from './isPendingAction'
@@ -18,6 +19,7 @@ export const addUserToApi = _addUserToApi
 export const combineReducersWithRoot = _combineReducersWithRoot
 export const dateFromObjectId = _dateFromObjectId
 export const fetchApi = _fetchApi
+export const getCookieOptions = _getCookieOptions
 export const genRandomString = _genRandomString
 export const getUserFromRequest = _getUserFromRequest
 export const isFulfilledAction = _isFulfilledAction
