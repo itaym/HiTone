@@ -1,14 +1,6 @@
-import { TIME_UNITS } from '@/src/enumerators'
+import { getCookieOptions } from '@/src/utils'
 
 const PUBLIC_FILE = /\.(.*)$/
-
-const cookieOptions = {
-    httpOnly: false,
-    maxAge: TIME_UNITS.YEAR * 120,
-    path: "/",
-    sameSite: "Strict",
-    secure: process.env.NODE_ENV === "production",
-}
 
 const countryLanguageMap = {
     be: 'fr',
@@ -35,6 +27,6 @@ export const langCookie = (req, res) => {
     if (!languages.includes(language)) language = 'en'
 
     if (req.nextUrl.locale !== language || !req.cookies['LOCALE']) {
-        res.cookie('LOCALE', language, cookieOptions)
+            res.cookie('LOCALE', language, getCookieOptions(false))
     }
 }

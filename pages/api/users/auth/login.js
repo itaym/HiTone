@@ -7,8 +7,9 @@ import { TIME_UNITS } from '@/src/enumerators'
 import { sha512 } from '@/src/utils'
 
 const cookieOptions = {
+    expires: new Date(new Date().valueOf() + TIME_UNITS.YEAR),
     httpOnly: true,
-    maxAge: TIME_UNITS.YEAR * 120,
+    maxAge: TIME_UNITS.YEAR,
     path: "/",
     sameSite: "Strict",
     secure: process.env.NODE_ENV === "production",
@@ -62,8 +63,9 @@ const login = async (req, res) => {
     if (statusHttp === httpStatus.OK) {
         res.setHeader('location', '/')
     }
-    const cookieString = strCookie('auth', token, cookieOptions.maxAge)
+    const cookieString = strCookie('auth', token)
     res.setHeader('Set-Cookie', cookieString)
     res.status(statusHttp).json(responseJson(statusHttp === httpStatus.OK, { user }, statusHttp, error))
 }
+// noinspection JSUnusedGlobalSymbols
 export default login

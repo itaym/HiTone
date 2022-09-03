@@ -1,9 +1,12 @@
-const strCookie = function(name, data, expire, httpOnly = true) {
+import { TIME_UNITS } from '@/src/enumerators'
+
+const strCookie = function(name, data, httpOnly = true) {
+    const NOW = new Date().valueOf()
     return '' +
         `${name}=${data};` +
-        `Expires=${new Date(Date.now() + expire)};` +
+        `Expires=${new Date(NOW + TIME_UNITS.YEAR)};` +
         `httpOnly=${httpOnly};` +
-        `maxAge=${expire};` +
+        `maxAge=${TIME_UNITS.YEAR};` +
         `path=/;` +
         `sameSite=Strict;` +
         `secure=${process.env.NODE_ENV === "production"};`

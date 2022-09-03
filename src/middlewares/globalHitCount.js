@@ -1,14 +1,7 @@
 /* Count global number of hits to the system
 *  */
-import { TIME_UNITS } from '../enumerators';
+import { getCookieOptions } from '@/src/utils'
 
-const cookieOptions = {
-    httpOnly: true,
-    maxAge: TIME_UNITS.YEAR * 120,
-    path: "/",
-    sameSite: "Strict",
-    secure: process.env.NODE_ENV === "production",
-}
 let count = 0
 
 export const globalHitCount = (req, res) => {
@@ -18,7 +11,7 @@ export const globalHitCount = (req, res) => {
         const cookieCount = parseInt(cookie)
         count = Math.max(count, cookieCount)
     }
-    res.cookie('count', ++count + '', cookieOptions)
+    res.cookie('count', ++count + '', getCookieOptions())
 
     console.log('Global Hit Count:', cookie || count)
 }

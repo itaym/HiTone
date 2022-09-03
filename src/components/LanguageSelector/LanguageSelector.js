@@ -1,6 +1,6 @@
-import Cookies from 'js-cookie'
 import classNames from 'classnames'
 import styles from '@/components/LanguageSelector/LanguageSelector.module.scss'
+import { setCookie } from 'react-use-cookie'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
@@ -15,8 +15,12 @@ const TopMenu = () => {
     const selectChange = async (e) => {
         const newLocale = e.target.value
 
-        Cookies.set('LOCALE', newLocale, { expires: 365 * 10, sameSite: 'strict' })
-
+        setCookie('LOCALE', newLocale, {
+            days: 365,
+            path: '/',
+            SameSite: 'strict',
+            Secure: true,
+        })
         await router.push(
             router.pathname,
             router.asPath,
