@@ -1,15 +1,17 @@
-import Head from 'next/head'
+import Header from '@/components/Header'
 import Image from 'next/image'
+import TopMenu from '@/components/TopMenu'
 import styles from '../styles/Home.module.css'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { setServerI18n_t_fn } from '@/src/utils'
 import { useTranslation } from 'next-i18next'
-import { useEffect, useState } from "react";
-import TopMenu from '@/components/TopMenu'
 
-export default function Home(props) {
+export default function Home() {
   const { t } = useTranslation('common')
+  setServerI18n_t_fn(t)
   return (
       <>
+        <Header />
         <TopMenu />
         <div className={styles.container}>
           <main className={styles.main}>

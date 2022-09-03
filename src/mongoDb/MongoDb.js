@@ -1,4 +1,4 @@
-import { MongoClient } from 'mongodb'
+import { MongoClient, ObjectId } from 'mongodb'
 import schemas from '@/src/MongoDb/MongoSchemas'
 import indices from '@/src/MongoDb/MongoIndices'
 import {
@@ -49,7 +49,6 @@ class MongoDb {
     async _addResetPassword(name, password) {
         await this._verifyConnection()
         const userName = name.toLowerCase()
-
         const user = await this.getUser(userName)
         if (!user) {
             throw {message: 'User doesn\'t exist'}
@@ -121,17 +120,30 @@ class MongoDb {
             await this.addUser(process.env.MONGODB_DEFAULT_USER, process.env.MONGODB_DEFAULT_PASS, data)
         }
     }
+    async _delResetPassword(_id) {
+        await this._verifyConnection()
+        await this._db.collection('resetPassword').deleteOne({ _id: new ObjectId(_id) })
+    }
     async _delUser(name) {
         await this._verifyConnection()
         await this._db.collection('users').deleteOne({ name })
     }
     async _getResetPassword(_id) {
         await this._verifyConnection()
-        return await this._db.collection('users').findOne({ _id })
+        return await this._db.collection('resetPassword').findOne({ _id: new ObjectId(_id) })
      }
     async _getUser(name = Math.random() + '') {
         await this._verifyConnection()
         return await this._db.collection('users').findOne({name})
+    }
+    async _getUserWithDetails(name = Math.random() + '') {
+        await this._verifyConnection()
+        const user = await this._getUser(name)
+        if (!user) {
+            throw {message: 'User was not found'}
+        }
+        const details = await this._db.collection('users_details').findOne({ userId: user._id})
+        return { user, details }
     }
     async _getUsers() {
         await this._verifyConnection()
@@ -209,10 +221,16 @@ class MongoDb {
         return await this._delUser(name)
     }
     async getResetPassword(objectId) {
-        return await this._getResetPassword(objectId)
+         return await this._getResetPassword(objectId)
+    }
+    async delResetPassword(_id) {
+        return await this._delResetPassword(_id)
     }
     async getUser(name) {
         return await this._getUser(name)
+    }
+    async getUserWithDetails(name) {
+        return await this._getUserWithDetails(name)
     }
     async getUsers() {
         return await this._getUsers()

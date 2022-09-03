@@ -7,10 +7,8 @@
   },
   "components": {
     "header": {
-
     },
     "footer": {
-
     },
     "TopMenu": {
       "about": "קצת עלינו",
@@ -21,23 +19,58 @@
       "logout": "יציאה"
     }
   },
+  "emails": {
+    "click_here": "הקלק כאן",
+    "email_name_format": "{{firstName}} {{middleName}} {{lastName}}",
+    "hello": "שלום",
+    "please_ignore": "אנא התעלם.",
+    "reset_password_phrase1": "אם את/ה לא יזמת את האימיל הזה",
+    "reset_password_phrase2": "של הסיסמא החדשה שזה עתה יצרת",
+    "reset_password_subject": "אמת יצירת סיסמא חדשה ב-HiTone",
+    "reset_password_title": "HiTone יצירת סיסמא חדשה",
+    "reset_password_to": "עבור",
+    "reset_password_verify": "אימות ואישרור"
+  },
   "errors": {
+    "method_not_allowed": "הפעולה אינה מאושרת",
+    "some_thing_went_wrong": "משהו השתבש, אנא נסה שוב",
     "user_cannot_be_created": "שם המשתמש הזה כבר קיים",
-    "user_was_not_found": "אימייל ו/או סיסמא שגויים"
+    "user_was_not_found": "אימייל ו/או סיסמא שגויים",
+    "verify_password_not_found": "תהליך אימות הסיסמא למשתמש הזה לא בנמצא"
   },
   "pages": {
     "home": {
       "title": "ברוך הבא לעולם של HiTone"
     },
     "login": {
+      "forgot_password": "האם שכחת את הסיסמא?",
       "login_button": "יאללה, כנס",
-      "sub-title": "צור, ערוך או נהל את הHiTones שלך",
+      "sub_title": "צור, ערוך או נהל את הHiTones שלך",
       "title": "ברוכים השבים"
     },
     "registration": {
       "join_button": "הצטרף אלינו !!!",
-      "sub-title": "צור, ערוך או נהל את הHiTones שלך",
+      "sub_title": "צור, ערוך או נהל את הHiTones שלך",
       "title": "הצטרף למשפחת HiTone"
+    },
+    "reset_password": {
+      "error_explain_1": "בדוק את האימייל שלך מכיוון שייתכן שנשלח אליך מייל",
+      "error_explain_2": "בכל מקרה, אתה מוזמן לנסות שוב",
+      "reset_button": "צור סיסמא חדשה",
+      "sub_title": "צור סיסמא חדשה עבור חשבון ה-HiTone שלך",
+      "sub_title_error": "אנו מצטערים, אבל משהו השתבש",
+      "sub_title_success": "OK, אז מה קורה עכשיו?",
+      "success_explain_1": "בדוק את האימייל שלך ולחץ על \"הקלק כאן\"",
+      "success_explain_2": "יש לך עד שעה זמן לעשות כן",
+      "title": "יצירת סיסמא חדשה"
+    },
+    "verify_password": {
+      "goto_login": "עבור למסך כניסה",
+      "title": "אימות סיסמא",
+      "sub_title_error": "שגיאה ארעה במהלך תהליך האימות",
+      "sub_title_failed": "אימות הסיסמא נכשל, כנראה שעברה יותר משעה ו/או שכבר השתמשת בקישור הזה מהאימייל",
+      "sub_title_pending": "אימות הסיסמא כרגע בתהליך...",
+      "sub_title_verified": "אימות הסיסמא עבר בהצלחה"
     }
   },
   "yup": {

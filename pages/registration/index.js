@@ -27,7 +27,11 @@ const Registration = ({ user }) => {
     const { t } = useTranslation('common')
     const dispatch = useDispatch()
     const error = useSelector(({ errors }) => errors[errors.length - 1])
-
+    if (process) {
+        // noinspection JSUnresolvedVariable
+        if (!process.t) process.t = {}
+        process.t[t('globals.locale')] = t
+    }
     const onSubmit = useCallback((values) => {
         clearTimeout(setTimeoutHandle)
         if (error) {
@@ -53,7 +57,7 @@ const Registration = ({ user }) => {
             <div className={styles.main}>
 
                 <h1>{t('pages.registration.title')}</h1>
-                <h3>{t('pages.registration.sub-title')}</h3>
+                <h3>{t('pages.registration.sub_title')}</h3>
 
                 <div className={styles['hold-form']}>
                     <AutoForm
