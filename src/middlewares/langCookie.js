@@ -28,7 +28,5 @@ export const langCookie = (req, res) => {
 
     if (!languages.includes(language)) language = 'en'
 
-    if (req.nextUrl.locale !== language || !req.cookies['LOCALE']) {
-            res.cookie('LOCALE', language, getCookieOptions(false))
-    }
+    res.cookie('LOCALE', language, getCookieOptions(false))
 }
