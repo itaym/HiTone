@@ -1,6 +1,7 @@
-/* Count global number of hits to the system
-*  */
+/* Count global number of hits to the system */
 import { getCookieOptions } from '@/src/utils'
+
+//todo: change it to work against the DB not cookie which is not reliable
 
 let count = 0
 
@@ -13,7 +14,8 @@ export const globalHitCount = (req, res) => {
     }
     res.cookie('count', ++count + '', getCookieOptions())
 
-    console.log('Global Hit Count:', cookie || count)
+    if (!(count % 10))
+        console.log('Global Hit Count:', cookie || count)
 }
 
 

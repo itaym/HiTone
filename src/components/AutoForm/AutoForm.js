@@ -1,6 +1,34 @@
 import styles from './AutoForm.module.scss'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
-
+/*
+----------------------------------------------------------------------------------
+AutoForm - Automatically generate a Formik out of Yup Schemas
+----------------------------------------------------------------------------------
+A YUP schema that wishes to automatically generate a form **MUST** have a "meta"
+property on each field of the schema. The structure of the meta tag must be an
+object with the following properties:
+id          -   Mandatory   -   The id of the field.
+name        -   Mandatory   -   The name of the field.
+type        -   Optional    -   The field type (text, email etc.), else is 'text'
+where       -   Mandatory   -   An object describing the position of the field:
+    column  -   Mandatory   -   The column number in which fo place the field.
+    row     -   Mandatory   -   The row number in which to place the field.
+props       -   Optional    -   An object with props to spread on the field.
+----------------------------------------------------------------------------------
+Example:
+{ id: 'phone-no',
+  name: 'phone-no',
+  type: 'tel',
+  where: {
+    column: 3,
+    row: 1
+  },
+  props: {
+    placeholder: '052-1234567'
+  }
+}
+----------------------------------------------------------------------------------
+ */
 const AutoForm = ({
     onSubmit,
     schema,
@@ -8,16 +36,17 @@ const AutoForm = ({
     ...rest
 }) => {
     const { fields } = schema.describe()
-
     const fieldsKeys = Object.keys(fields)
+
     let columns = 0, rows = 0
 
     fieldsKeys.forEach((field) => {
         columns = Math.max(columns, fields[field].meta.where.column)
         rows = Math.max(rows, fields[field].meta.where.row)
     })
-    columns *= 2
-    rows *= 2 + 1
+    columns *= 2  /* Each column has two elements */
+    rows *= 2 + 1 /* Each row has one for the elements and one for the error.
+                     The extra row is for the button */
 
     let columnsTemplate = new Array(columns).fill('auto').join(' ')
     let rowsTemplate = new Array(rows).fill('auto').join(' ')
@@ -60,11 +89,12 @@ const AutoForm = ({
                                 id={field} name={field}
                                 key={`field_${index}`}
                                 style={fieldStyle}
-                                type={fields[field]?.meta?.type}
+                                type={fields[field]?.meta?.type || 'text'}
                                 {...(fields[field].meta?.props || {})}/>,
                             <div
                                 key={`error_${index}`}
                                 style={errorStyle}>
+                                {/* todo: Need to understand this shit */}
                                 <ErrorMessage
                                     className={styles.form__error}
                                     component="div"

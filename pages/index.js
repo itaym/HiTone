@@ -6,9 +6,11 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { setServerI18n_t_fn } from '@/src/utils'
 import { useTranslation } from 'next-i18next'
 
+// noinspection JSUnusedGlobalSymbols
 export default function Home() {
   const { t } = useTranslation('common')
   setServerI18n_t_fn(t)
+
   return (
       <>
         <Header />
@@ -72,7 +74,7 @@ export default function Home() {
 
   )
 }
-
+// noinspection JSUnusedGlobalSymbols
 export const getStaticProps = async ({ locale }) => ({
   props: {
     ...await serverSideTranslations(locale, ['common']),

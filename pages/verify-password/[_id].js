@@ -1,14 +1,15 @@
 import Header from '@/src/components/Header'
+import Link from 'next/link'
 import TopMenu from '@/components/TopMenu'
 import fetchApi from '@/utils/fetchApi'
+import httpStatus from 'http-status'
 import styles from './verify-password.module.scss'
-import { useTranslation } from 'next-i18next'
+import { TIME_UNITS } from '@/enumerators/enumerators'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { setServerI18n_t_fn } from '@/src/utils'
-import { useEffect, useState } from 'react'
-import httpStatus from 'http-status'
 import { sleep } from '@/src/utils'
-import Link from 'next/link'
+import { useEffect, useState } from 'react'
+import { useTranslation } from 'next-i18next'
 
 // noinspection JSUnusedGlobalSymbols
 export const getServerSideProps  = async function ({ locale, params: { _id } }) {
@@ -33,7 +34,7 @@ const VerifyPassword = ({ _id }) => {
 
     useEffect(() => {
         (async (_id) => {
-            await sleep(2000)
+            await sleep(TIME_UNITS.SECOND * 4)
             return await fetchApi('/users/auth/verifyResetPassword', { method: 'POST' }, { _id })
         })(_id).then((result) => {
             if (!result.ok) {

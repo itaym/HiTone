@@ -1,7 +1,6 @@
 import AutoForm from '@/components/AutoForm'
 import Header from '@/src/components/Header'
 import TopMenu from '@/components/TopMenu'
-import fetchApi from '@/utils/fetchApi'
 import getUserFromRequest from '@/utils/getUserFromRequest'
 import styles from './login.module.scss'
 import { clearError } from '@/redux/actions/root'
@@ -29,9 +28,10 @@ let setTimeoutHandle;
 
 const Login = ({ user }) => {
     const { t } = useTranslation('common')
-    setServerI18n_t_fn(t)
     const dispatch = useDispatch()
     const error = useSelector(({ errors }) => errors[errors.length - 1])
+    setServerI18n_t_fn(t)
+
     const onSubmit = useCallback((values) => {
         clearTimeout(setTimeoutHandle)
         if (error) {
@@ -73,6 +73,3 @@ const Login = ({ user }) => {
 }
 // noinspection JSUnusedGlobalSymbols
 export default Login
-
-
-

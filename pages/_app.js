@@ -21,4 +21,5 @@ function MyApp({ Component, pageProps }) {
         </Provider>
     )
 }
+// noinspection JSUnusedGlobalSymbols
 export default appWithTranslation(wrapper.withRedux(MyApp))

@@ -18,7 +18,7 @@ const TopMenu = () => {
         setCookie('LOCALE', newLocale, {
             days: 365,
             path: '/',
-            SameSite: 'strict',
+            SameSite: 'Strict',
             Secure: true,
         })
         await router.push(

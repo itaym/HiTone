@@ -1,6 +1,6 @@
+import path from 'path'
 import { HTML_TEMPLATES } from '@/src/enumerators'
 import { minify } from 'html-minifier'
-import path from 'path'
 import { readFile } from 'node:fs/promises'
 
 const filesMap = {

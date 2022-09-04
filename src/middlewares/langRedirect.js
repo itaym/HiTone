@@ -1,3 +1,4 @@
+import config from '../../next-i18next.config'
 import { NextResponse } from 'next/server'
 
 const PUBLIC_FILE = /\.(.*)$/
@@ -11,7 +12,7 @@ const countryLanguageMap = {
     us: 'en',
 }
 
-const languages = ['de', 'en', 'es', 'fr', 'he', 'it', 'ja']
+const languages = config['i18n']['locales']
 
 export const langRedirect = (req) => {
     if (

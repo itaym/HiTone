@@ -4,7 +4,6 @@ import jwt from 'jsonwebtoken'
 import responseJson from '@/utils/responseJson'
 import strCookie from '@/utils/strCookie'
 import { TIME_UNITS } from '@/src/enumerators'
-import { sha512 } from '@/src/utils'
 
 const cookieOptions = {
     httpOnly: true,
@@ -61,4 +60,5 @@ const registration = async (req, res) => {
     res.setHeader('Set-Cookie', cookieString)
     res.status(statusHttp).json(responseJson(statusHttp === httpStatus.OK, { user }, statusHttp, error))
 }
+// noinspection JSUnusedGlobalSymbols
 export default registration

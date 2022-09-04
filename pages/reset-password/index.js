@@ -32,10 +32,11 @@ const SUCCESS = 'success'
 
 const ResetPassword = ({ user }) => {
     const { t } = useTranslation('common')
-    setServerI18n_t_fn(t)
     const [status, setStatus] = useState(PENDING)
     const dispatch = useDispatch()
     const error = useSelector(({ errors }) => errors[errors.length - 1])
+    setServerI18n_t_fn(t)
+
     const onSubmit = useCallback(async (values) => {
         clearTimeout(setTimeoutHandle)
         if (error) {
@@ -92,6 +93,3 @@ const ResetPassword = ({ user }) => {
 }
 // noinspection JSUnusedGlobalSymbols
 export default ResetPassword
-
-
-

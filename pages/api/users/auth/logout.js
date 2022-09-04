@@ -8,8 +8,7 @@ const logout = (req, res) => {
 
     const token = jwt.sign(
         {},
-        process.env.JWT_SECRET,
-        {
+        process.env.JWT_SECRET, {
             expiresIn: TIME_UNITS.YEAR * 120 / TIME_UNITS.SECOND,
         }
     )
@@ -19,4 +18,5 @@ const logout = (req, res) => {
     res.setHeader('Set-Cookie', cookieString)
     res.status(httpStatus.OK).json(responseJson(true, {}, httpStatus.OK))
 }
+// noinspection JSUnusedGlobalSymbols
 export default logout

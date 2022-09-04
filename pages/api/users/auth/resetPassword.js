@@ -1,3 +1,4 @@
+import * as path from 'path'
 import MongoDb from '@/src/mongoDb'
 import httpStatus from 'http-status'
 import responseJson from '@/utils/responseJson'
@@ -5,7 +6,6 @@ import { EmailTemplates } from '@/src/emailTemplates'
 import { HTML_TEMPLATES } from '@/enumerators/enumerators'
 import { SMTPClient, Message } from 'emailjs'
 import { stringToLiteralWithData } from '@/src/utils'
-import * as path from 'path'
 
 const resetPassword = async (req, res) => {
     // noinspection JSUnresolvedVariable
@@ -70,4 +70,3 @@ const resetPassword = async (req, res) => {
 
 // noinspection JSUnusedGlobalSymbols
 export default resetPassword
-
