@@ -4,7 +4,7 @@ const strCookie = function(name, data, httpOnly = true) {
     const NOW = new Date().valueOf()
     return '' +
         `${name}=${data};` +
-        `Expires=${new Date(NOW + TIME_UNITS.YEAR)};` +
+        `Expires=${(new Date(NOW + TIME_UNITS.YEAR) + '').substr(0, 33)};` +
         `httpOnly=${httpOnly};` +
         `maxAge=${TIME_UNITS.YEAR};` +
         `path=/;` +
