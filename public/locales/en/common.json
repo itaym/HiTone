@@ -7,10 +7,8 @@
   },
   "components": {
     "header": {
-
     },
     "footer": {
-
     },
     "TopMenu": {
       "about": "About",
@@ -21,23 +19,59 @@
       "logout": "Sign-out"
     }
   },
+  "emails": {
+    "click_here": "Click Here",
+    "email_name_format": "{{lastName}} {{firstName}} {{middleName}}",
+    "hello": "Hello",
+    "please_ignore": "please ignore.",
+    "reset_password_phrase1": "If you didn't initiate this email",
+    "reset_password_phrase2": "the new password you just entered",
+    "reset_password_subject": "Verify reset password at HiTone",
+    "reset_password_title": "HiTone Reset Password",
+    "reset_password_to": "To",
+    "reset_password_verify": "verify and set"
+  },
   "errors": {
+    "method_not_allowed": "Method not allowed",
+    "some_thing_went_wrong": "Something went wrong, please try again",
     "user_cannot_be_created": "The user already exists",
-    "user_was_not_found": "Wrong email and/or password"
+    "user_was_not_found": "Wrong email and/or password",
+    "verify_password_not_found": "Password verification process to that user was not found"
   },
   "pages": {
     "home": {
       "title": "Home Hello World"
     },
     "login": {
+      "forgot_password": "Forgot your password?",
       "login_button": "Sign-In",
-      "sub-title": "Create new, Edit and manage your HiTones",
+      "sub_title": "Create new, Edit and manage your HiTones",
       "title": "Sign-In"
     },
     "registration": {
       "join_button": "Join us !!!",
-      "sub-title": "Create new, Edit and manage your HiTones",
+      "sub_title": "Create new, Edit and manage your HiTones",
       "title": "Join HiTone Family"
+    },
+    "reset_password": {
+      "forgot_password": "Forgot your password?",
+      "reset_button": "Reset password",
+      "sub_title": "Create a new password for your HiTones account",
+      "sub_title_success": "OK, so what happens now?",
+      "success_explain_1": "Check your email and click on \"Click Here\"",
+      "success_explain_2": "You have up to 1 hour to do so.",
+      "sub_title_error": "We are sorry, but something went wrong",
+      "error_explain_1": "Check your mail because an email might been sent to you.",
+      "error_explain_2": "Any way, you are welcome to try again",
+      "title": "Reset password"
+    },
+    "verify_password": {
+      "goto_login": "Goto Login",
+      "title": "Password Verification",
+      "sub_title_error": "An error occurred during process",
+      "sub_title_failed": "Password verification has failed. Probably over an hour has passed and/or you already used the link from the email",
+      "sub_title_pending": "Password verification in process...",
+      "sub_title_verified": "Password verification succeeded"
     }
   },
   "yup": {

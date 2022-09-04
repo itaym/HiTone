@@ -4,13 +4,16 @@ import TopMenu from '@/components/TopMenu'
 import getUserFromRequest from '@/utils/getUserFromRequest'
 import styles from './login.module.scss'
 import { clearError } from '@/redux/actions/root'
+import { useTranslation } from 'next-i18next'
 import { login, logout } from '@/redux/actions/users'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { setServerI18n_t_fn } from '@/src/utils'
 import { useCallback, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useTranslation } from 'next-i18next'
 import { yupLoginSchema } from '@/src/yupSchemas'
+import Link from 'next/link'
 
+// noinspection JSUnusedGlobalSymbols
 export const getServerSideProps  = async function ({ locale, req }) {
     return {
         props: {
@@ -27,6 +30,7 @@ const Login = ({ user }) => {
     const { t } = useTranslation('common')
     const dispatch = useDispatch()
     const error = useSelector(({ errors }) => errors[errors.length - 1])
+    setServerI18n_t_fn(t)
 
     const onSubmit = useCallback((values) => {
         clearTimeout(setTimeoutHandle)
@@ -44,7 +48,6 @@ const Login = ({ user }) => {
             dispatch(logout(true))
         }
     }, [dispatch, user])
-
     return (
         <>
             <Header />
@@ -52,7 +55,7 @@ const Login = ({ user }) => {
             <div className={styles.main}>
 
                 <h1>{t('pages.login.title')}</h1>
-                <h3>{t('pages.login.sub-title')}</h3>
+                <h3>{t('pages.login.sub_title')}</h3>
 
                 <div className={styles['hold-form']}>
                     <AutoForm
@@ -61,11 +64,12 @@ const Login = ({ user }) => {
                         submitText={t('pages.login.login_button')} />
                     <div className={styles.loginError}>{t(error)}</div>
                 </div>
+                <Link  href={'/reset-password'}>
+                    <a><div className={styles.forgotPassword}>{t('pages.login.forgot_password')}</div></a>
+                </Link>
             </div>
         </>
     )
 }
+// noinspection JSUnusedGlobalSymbols
 export default Login
-
-
-

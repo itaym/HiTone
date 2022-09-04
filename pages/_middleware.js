@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { globalHitCount, langRedirect, langCookie } from '@/src/middlewares'
 
+// noinspection JSUnusedGlobalSymbols
 export const middleware = (req) => {
     const res = NextResponse.next()
 
@@ -12,8 +13,7 @@ export const middleware = (req) => {
 
     return res
 }
-
+// noinspection JSUnusedGlobalSymbols
 export const config = {
     matcher: '/:path*',
 }
-

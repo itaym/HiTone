@@ -1,7 +1,9 @@
+import config from '../../next-i18next.config'
 import { getCookieOptions } from '@/src/utils'
 
 const PUBLIC_FILE = /\.(.*)$/
 
+//todo: create a full map
 const countryLanguageMap = {
     be: 'fr',
     ca: 'en',
@@ -11,7 +13,7 @@ const countryLanguageMap = {
     us: 'en',
 }
 
-const languages = ['de', 'en', 'es', 'fr', 'he', 'it', 'ja']
+const languages = config['i18n']['locales']
 
 export const langCookie = (req, res) => {
     if (

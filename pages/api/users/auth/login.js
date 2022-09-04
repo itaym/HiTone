@@ -50,8 +50,7 @@ const login = async (req, res) => {
             }
             token = jwt.sign(
                 { user },
-                process.env.JWT_SECRET,
-                {
+                process.env.JWT_SECRET, {
                     expiresIn: Math.floor(cookieOptions.maxAge / TIME_UNITS.SECOND),
                 }
             )

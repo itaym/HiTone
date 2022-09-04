@@ -1,11 +1,6 @@
 import * as Yup from 'yup'
 import { format as formatDate } from 'date-fns'
 
-function parseI18nDate(t) {
-    return function (value, originalValue) {
-        return formatDate(originalValue, 'yyyy-MM-dd')
-    }
-}
 const originalToString = Date.prototype.toString
 Date.prototype.setFormat = function(format) {
     this.format = format
@@ -71,6 +66,17 @@ export const _yupLoginSchema = (t) => (Yup.object().shape({
         .min(8, t('yup.password_too_short'))
         .required(t('yup.password_is_required')),
 }))
+
+export const _yupResetPasswordSchema = (t) => {
+    const verifyField = Yup.object().shape({
+        passwordConfirmation: Yup.string()
+            .default('')
+            .label(t('yup.password_verify'))
+            .meta({ id: 'passwordConfirm', name: 'passwordConfirm', type: 'password', where: { column: 1, row: 3 }})
+            .oneOf([Yup.ref('password'), null], t('yup.password_must_match')),
+    })
+    return verifyField.concat(_yupLoginSchema(t))
+}
 
 export const _yupRegistrationSchema = (t) => (Yup.object().shape({
     email: Yup.string()

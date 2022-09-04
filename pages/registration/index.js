@@ -6,11 +6,13 @@ import styles from '../login/login.module.scss'
 import { clearError } from '@/redux/actions/root'
 import { logout, registration } from '@/redux/actions/users'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { setServerI18n_t_fn } from '@/src/utils'
 import { useCallback, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'next-i18next'
 import { yupRegistrationSchema } from '@/src/yupSchemas'
 
+// noinspection JSUnusedGlobalSymbols
 export const getServerSideProps  = async function ({ locale, req }) {
     return {
         props: {
@@ -27,6 +29,7 @@ const Registration = ({ user }) => {
     const { t } = useTranslation('common')
     const dispatch = useDispatch()
     const error = useSelector(({ errors }) => errors[errors.length - 1])
+    setServerI18n_t_fn(t)
 
     const onSubmit = useCallback((values) => {
         clearTimeout(setTimeoutHandle)
@@ -53,7 +56,7 @@ const Registration = ({ user }) => {
             <div className={styles.main}>
 
                 <h1>{t('pages.registration.title')}</h1>
-                <h3>{t('pages.registration.sub-title')}</h3>
+                <h3>{t('pages.registration.sub_title')}</h3>
 
                 <div className={styles['hold-form']}>
                     <AutoForm
@@ -66,7 +69,5 @@ const Registration = ({ user }) => {
         </>
     )
 }
+// noinspection JSUnusedGlobalSymbols
 export default Registration
-
-
-

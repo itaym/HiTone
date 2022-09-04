@@ -166,6 +166,9 @@ export const UNIT_TYPES = {
     },
 }
 
+export const HTML_TEMPLATES = {
+    RESET_PASSWORD: 'RESET_PASSWORD'
+}
 export const TIME_UNITS = {
     MILLISECOND: 1,
     SECOND: 1000,
