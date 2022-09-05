@@ -8,7 +8,7 @@ Date.prototype.setFormat = function(format) {
 Date.prototype.toString = function () {
     if (this.format) {
         try {
-            return formatDate(this, 'yyyy-MM-dd')
+            return formatDate(this, this.format)
         } catch {
             return originalToString.call(this)
         }
@@ -17,7 +17,7 @@ Date.prototype.toString = function () {
 }
 function getDate({addYears = 0, addDays = 0, addMonths = 0, addHours = 0, addMinutes = 0, addSeconds = 0, format}) {
     let date = new Date()
-    if (format) date.format = format
+    if (format) date.setFormat(format)
     date.setFullYear(date.getFullYear() + addYears)
     date.setMonth(date.getMonth() + addMonths)
     date.setDate(date.getDate() + addDays)
@@ -25,6 +25,14 @@ function getDate({addYears = 0, addDays = 0, addMonths = 0, addHours = 0, addMin
     date.setMinutes(date.getMinutes() + addMinutes)
     date.setSeconds(date.getSeconds() + addSeconds)
     return date
+}
+function schemaDirection () {}
+schemaDirection.toString = function() {
+    try {
+        if (window && window.innerWidth < 964) return 'row'
+    }
+    catch {}
+    return 'column'
 }
 const format = 'yyyy-MM-dd'
 // noinspection JSUnresolvedVariable
@@ -78,7 +86,7 @@ export const _yupResetPasswordSchema = (t) => {
     return verifyField.concat(_yupLoginSchema(t))
 }
 
-export const _yupRegistrationSchema = (t) => (Yup.object().shape({
+export const _yupRegistrationSchema = (t) => (Yup.object().meta({ direction: schemaDirection + '' }).shape({
     email: Yup.string()
         .default('')
         .email(t('yup.invalid_email'))

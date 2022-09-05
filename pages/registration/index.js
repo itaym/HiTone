@@ -7,7 +7,7 @@ import { clearError } from '@/redux/actions/root'
 import { logout, registration } from '@/redux/actions/users'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { setServerI18n_t_fn } from '@/src/utils'
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'next-i18next'
 import { yupRegistrationSchema } from '@/src/yupSchemas'
@@ -29,6 +29,7 @@ const Registration = ({ user }) => {
     const { t } = useTranslation('common')
     const dispatch = useDispatch()
     const error = useSelector(({ errors }) => errors[errors.length - 1])
+    const [showForm, setShowForm] = useState(false)
     setServerI18n_t_fn(t)
 
     const onSubmit = useCallback((values) => {
@@ -47,6 +48,7 @@ const Registration = ({ user }) => {
             clearTimeout(setTimeoutHandle)
             setTimeoutHandle = setTimeout(() => dispatch(clearError(error)), 10_000)
         }
+        setShowForm(true)
     }, [dispatch, error, user])
 
     return (
