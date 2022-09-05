@@ -1,4 +1,5 @@
 import AutoForm from '@/components/AutoForm'
+import Conditional from '@/components/Conditional'
 import Header from '@/src/components/Header'
 import TopMenu from '@/components/TopMenu'
 import getUserFromRequest from '@/utils/getUserFromRequest'
@@ -29,7 +30,7 @@ const Registration = ({ user }) => {
     const { t } = useTranslation('common')
     const dispatch = useDispatch()
     const error = useSelector(({ errors }) => errors[errors.length - 1])
-    const [showForm, setShowForm] = useState(false)
+    const [showForm, setShowForm] = useState({ show: false })
     setServerI18n_t_fn(t)
 
     const onSubmit = useCallback((values) => {
@@ -40,6 +41,8 @@ const Registration = ({ user }) => {
         dispatch((registration(values)))
     }, [dispatch, error])
 
+    const onResize = useCallback(() => setShowForm({ show: true }) , [])
+
     useEffect(() => {
         if (user._id) {
             dispatch(logout(true))
@@ -48,7 +51,10 @@ const Registration = ({ user }) => {
             clearTimeout(setTimeoutHandle)
             setTimeoutHandle = setTimeout(() => dispatch(clearError(error)), 10_000)
         }
-        setShowForm(true)
+        window.addEventListener('resize', onResize)
+        setShowForm({ show: true })
+
+        return () => window.removeEventListener('resize', onResize)
     }, [dispatch, error, user])
 
     return (
@@ -59,14 +65,15 @@ const Registration = ({ user }) => {
 
                 <h1>{t('pages.registration.title')}</h1>
                 <h3>{t('pages.registration.sub_title')}</h3>
-
-                <div className={styles['hold-form']}>
-                    <AutoForm
-                        onSubmit={onSubmit}
-                        schema={yupRegistrationSchema(t)}
-                        submitText={t('pages.registration.join_button')} />
-                    <div className={styles.loginError}>{t(error)}</div>
-                </div>
+                <Conditional condition={showForm.show}>
+                    <div className={styles['hold-form']}>
+                        <AutoForm
+                            onSubmit={onSubmit}
+                            schema={yupRegistrationSchema(t)}
+                            submitText={t('pages.registration.join_button')} />
+                        <div className={styles.loginError}>{t(error)}</div>
+                    </div>
+                </Conditional>
             </div>
         </>
     )
