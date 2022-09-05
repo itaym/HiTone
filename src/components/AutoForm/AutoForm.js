@@ -80,16 +80,17 @@ const AutoForm = ({
                     return (
                         [
                             <label
-                                htmlFor={field}
+                                htmlFor={fields[field].id}
                                 key={`label_${index}`}
                                 style={labelStyle}>
                                 {fields[field]?.label}
                             </label>,
                             <Field
-                                id={field} name={field}
+                                id={fields[field].meta.id}
                                 key={`field_${index}`}
+                                name={fields[field].meta.name}
                                 style={fieldStyle}
-                                type={fields[field]?.meta?.type || 'text'}
+                                type={fields[field].meta?.type || 'text'}
                                 {...(fields[field].meta?.props || {})}/>,
                             <div
                                 key={`error_${index}`}
