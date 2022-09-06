@@ -6,7 +6,6 @@ import httpStatus from 'http-status'
 import styles from './verify-password.module.scss'
 import { TIME_UNITS } from '@/enumerators/enumerators'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { setServerI18n_t_fn } from '@/src/utils'
 import { sleep } from '@/src/utils'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'next-i18next'
@@ -30,7 +29,6 @@ const VerifyPassword = ({ _id }) => {
     const { t } = useTranslation('common')
     const [status, setStatus] = useState(PENDING)
     const [error, setError] = useState('')
-    setServerI18n_t_fn(t)
 
     useEffect(() => {
         (async (_id) => {

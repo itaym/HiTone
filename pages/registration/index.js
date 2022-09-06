@@ -21,8 +21,6 @@ export const getServerSideProps  = async function ({ locale, req }) {
     }
 }
 
-let setTimeoutHandle;
-
 const Registration = ({ user }) => {
     const { t } = useTranslation('common')
     const dispatch = useDispatch()
@@ -30,7 +28,6 @@ const Registration = ({ user }) => {
     const [showForm, setShowForm] = useState({ show: false })
 
     const onSubmit = useCallback((values) => {
-        clearTimeout(setTimeoutHandle)
         if (error) {
             dispatch(clearError(error))
         }
@@ -42,10 +39,6 @@ const Registration = ({ user }) => {
     useEffect(() => {
         if (user._id) {
             dispatch(logout(true))
-        }
-        if (error) {
-            clearTimeout(setTimeoutHandle)
-            setTimeoutHandle = setTimeout(() => dispatch(clearError(error)), 10_000)
         }
         window.addEventListener('resize', onResize)
         setShowForm({ show: true })
@@ -63,7 +56,6 @@ const Registration = ({ user }) => {
                         onSubmit={onSubmit}
                         schema={yupRegistrationSchema(t)}
                         submitText={t('pages.registration.join_button')} />
-                    <div className={styles.loginError}>{t(error)}</div>
                 </div>
             </Conditional>
         </div>

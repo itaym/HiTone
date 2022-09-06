@@ -5,12 +5,12 @@ import fetchApi from '@/utils/fetchApi'
 import getUserFromRequest from '@/utils/getUserFromRequest'
 import styles from './reset-password.module.scss'
 import { clearError } from '@/redux/actions/root'
-import { useTranslation } from 'next-i18next'
 import { logout } from '@/redux/actions/users'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { setServerI18n_t_fn } from '@/src/utils'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useTranslation } from 'next-i18next'
 import { yupResetPasswordSchema } from '@/src/yupSchemas'
 
 // noinspection JSUnusedGlobalSymbols
@@ -24,8 +24,6 @@ export const getServerSideProps  = async function ({ locale, req }) {
     }
 }
 
-let setTimeoutHandle;
-
 const ERROR = 'error'
 const PENDING = 'pending'
 const SUCCESS = 'success'
@@ -38,7 +36,6 @@ const ResetPassword = ({ user }) => {
     setServerI18n_t_fn(t)
 
     const onSubmit = useCallback(async (values) => {
-        clearTimeout(setTimeoutHandle)
         if (error) {
             dispatch(clearError(error))
         }
@@ -49,9 +46,6 @@ const ResetPassword = ({ user }) => {
         }
     }, [dispatch, error])
 
-    if (error) {
-        setTimeoutHandle = setTimeout(() => dispatch(clearError(error)), 10_000)
-    }
     useEffect(() => {
         if (user._id) {
             dispatch(logout(true))
@@ -71,7 +65,6 @@ const ResetPassword = ({ user }) => {
                     onSubmit={onSubmit}
                     schema={yupResetPasswordSchema(t)}
                     submitText={t('pages.reset_password.reset_button')} />
-                <div className={styles.loginError}>{t(error)}</div>
             </div>],
         [SUCCESS]: [
             <h3 key={'success_h3'}>{t('pages.reset_password.sub_title_success')}</h3>,

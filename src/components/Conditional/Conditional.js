@@ -1,7 +1,7 @@
 import React from 'react'
 import propTypes from 'prop-types'
 
-const Conditional = ({condition, children}) => {
+const Conditional = ({condition = true, children}) => {
     return condition ? children : null
 }
 

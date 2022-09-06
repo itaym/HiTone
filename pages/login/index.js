@@ -21,24 +21,18 @@ export const getServerSideProps  = async function ({ locale, req }) {
     }
 }
 
-let setTimeoutHandle;
-
 const Login = ({ user }) => {
     const { t } = useTranslation('common')
     const dispatch = useDispatch()
     const error = useSelector(({ errors }) => errors[errors.length - 1])
 
     const onSubmit = useCallback((values) => {
-        clearTimeout(setTimeoutHandle)
         if (error) {
             dispatch(clearError(error))
         }
         dispatch((login(values)))
     }, [dispatch, error])
 
-    if (error) {
-        setTimeoutHandle = setTimeout(() => dispatch(clearError(error)), 10_000)
-    }
     useEffect(() => {
         if (user._id) {
             dispatch(logout(true))
@@ -56,7 +50,6 @@ const Login = ({ user }) => {
                         onSubmit={onSubmit}
                         schema={yupLoginSchema(t)}
                         submitText={t('pages.login.login_button')} />
-                    <div className={styles.loginError}>{t(error)}</div>
                 </div>
                 <Link  href={'/reset-password'}>
                     <a><div className={styles.forgotPassword}>{t('pages.login.forgot_password')}</div></a>

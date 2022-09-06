@@ -58,7 +58,6 @@
       "title": "Join HiTone Family"
     },
     "reset_password": {
-      "forgot_password": "Forgot your password?",
       "reset_button": "Reset password",
       "sub_title": "Create a new password for your HiTones account",
       "sub_title_success": "OK, so what happens now?",
