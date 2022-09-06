@@ -35,3 +35,15 @@
     padding: 0;
   }
 }
+[dir=ltr] {
+  .errorElement {
+    .time {
+      border-left: 1px solid var(--border-color);
+      border-right: none;
+    }
+    .x {
+      border-left: 1px solid var(--border-color);
+      border-right: none;
+    }
+  }
+}
