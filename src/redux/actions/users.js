@@ -56,7 +56,7 @@ export const registration = createAsyncThunk(
     ACTION_REGISTRATION,
     async ( args, { rejectWithValue }) => {
         try {
-            const json = await fetchApi('/users/auth/registration', { method: 'POST'}, args)
+            const json = await fetchApi('/users', { method: 'POST'}, args)
             if (json.ok) {
                 return json.payload
             }
