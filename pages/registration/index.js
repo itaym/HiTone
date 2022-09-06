@@ -1,13 +1,10 @@
 import AutoForm from '@/components/AutoForm'
 import Conditional from '@/components/Conditional'
-import Header from '@/src/components/Header'
-import TopMenu from '@/components/TopMenu'
 import getUserFromRequest from '@/utils/getUserFromRequest'
 import styles from '../login/login.module.scss'
 import { clearError } from '@/redux/actions/root'
 import { logout, registration } from '@/redux/actions/users'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { setServerI18n_t_fn } from '@/src/utils'
 import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'next-i18next'
@@ -31,7 +28,6 @@ const Registration = ({ user }) => {
     const dispatch = useDispatch()
     const error = useSelector(({ errors }) => errors[errors.length - 1])
     const [showForm, setShowForm] = useState({ show: false })
-    setServerI18n_t_fn(t)
 
     const onSubmit = useCallback((values) => {
         clearTimeout(setTimeoutHandle)
@@ -58,24 +54,19 @@ const Registration = ({ user }) => {
     }, [dispatch, error, user])
 
     return (
-        <>
-            <Header />
-            <TopMenu />
-            <div className={styles.main}>
-
-                <h1>{t('pages.registration.title')}</h1>
-                <h3>{t('pages.registration.sub_title')}</h3>
-                <Conditional condition={showForm.show}>
-                    <div className={styles['hold-form']}>
-                        <AutoForm
-                            onSubmit={onSubmit}
-                            schema={yupRegistrationSchema(t)}
-                            submitText={t('pages.registration.join_button')} />
-                        <div className={styles.loginError}>{t(error)}</div>
-                    </div>
-                </Conditional>
-            </div>
-        </>
+        <div className={styles.main}>
+            <h1>{t('pages.registration.title')}</h1>
+            <h3>{t('pages.registration.sub_title')}</h3>
+            <Conditional condition={showForm.show}>
+                <div className={styles['hold-form']}>
+                    <AutoForm
+                        onSubmit={onSubmit}
+                        schema={yupRegistrationSchema(t)}
+                        submitText={t('pages.registration.join_button')} />
+                    <div className={styles.loginError}>{t(error)}</div>
+                </div>
+            </Conditional>
+        </div>
     )
 }
 // noinspection JSUnusedGlobalSymbols

@@ -6,6 +6,10 @@
     "locale": "en"
   },
   "components": {
+    "CookieDisclaimer": {
+      "message": "We use cookies to provide the best experience on our website. This includes cookies for website functionality, to manage our commercial objectives and optimization.",
+      "ok": "Got it"
+    },
     "header": {
     },
     "footer": {

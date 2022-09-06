@@ -29,7 +29,7 @@ function getDate({addYears = 0, addDays = 0, addMonths = 0, addHours = 0, addMin
 function schemaDirection () {}
 schemaDirection.toString = function() {
     try {
-        if (window && window.innerWidth < 964) return 'row'
+        if (window && window.innerWidth < 994) return 'row'
     }
     catch {}
     return 'column'
