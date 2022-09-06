@@ -3,12 +3,13 @@ import Seo from '@/src/seo/Seo'
 import { useTranslation } from 'next-i18next'
 
 const Header = () => {
-    const { t } = useTranslation('seo')
+    const { t: common_t } = useTranslation('common')
+    const { t: seo_t } = useTranslation('seo')
     return (
         <Head>
-            <title>{t('seo.title')}</title>
-            <meta httpEquiv="content-language" content={t('globals.locale')} />
-            <Seo t={t} />
+            <title>{seo_t('seo.title')}</title>
+            <meta httpEquiv="content-language" content={common_t('globals.locale')} />
+            <Seo t={seo_t} />
         </Head>
     )
 }

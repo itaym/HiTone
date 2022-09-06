@@ -173,20 +173,22 @@ class MongoDb {
         if(this._isConnected) return this._isConnected
 
         let timeOut = 0
-        for(let tries = 0; tries < 4; tries++) {
-            try {
-                 await this._connect()
-            }
-            catch {
-                await sleep(timeOut)
-            }
+        try {
+            for (let tries = 0; tries < 4; tries++) {
+                try {
+                    await this._connect()
+                } catch {
+                    await sleep(timeOut)
+                }
 
-            timeOut += TIME_UNITS.SECOND / 4
+                timeOut += TIME_UNITS.SECOND / 4
 
-            if (this._isConnected) {
-                return this._isConnected
+                if (this._isConnected) {
+                    return this._isConnected
+                }
             }
         }
+        catch {}
         const err = new Error('Error connecting to the DB')
         throw(err)
     }

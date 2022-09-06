@@ -1,13 +1,10 @@
 import AutoForm from '@/components/AutoForm'
-import Header from '@/src/components/Header'
-import TopMenu from '@/components/TopMenu'
 import getUserFromRequest from '@/utils/getUserFromRequest'
 import styles from './login.module.scss'
 import { clearError } from '@/redux/actions/root'
 import { useTranslation } from 'next-i18next'
 import { login, logout } from '@/redux/actions/users'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { setServerI18n_t_fn } from '@/src/utils'
 import { useCallback, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { yupLoginSchema } from '@/src/yupSchemas'
@@ -30,7 +27,6 @@ const Login = ({ user }) => {
     const { t } = useTranslation('common')
     const dispatch = useDispatch()
     const error = useSelector(({ errors }) => errors[errors.length - 1])
-    setServerI18n_t_fn(t)
 
     const onSubmit = useCallback((values) => {
         clearTimeout(setTimeoutHandle)
@@ -50,8 +46,6 @@ const Login = ({ user }) => {
     }, [dispatch, user])
     return (
         <>
-            <Header />
-            <TopMenu />
             <div className={styles.main}>
 
                 <h1>{t('pages.login.title')}</h1>

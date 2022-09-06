@@ -1,3 +1,4 @@
+import propTypes from 'prop-types'
 import styles from './AutoForm.module.scss'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 /*
@@ -5,9 +6,8 @@ import { Formik, Form, Field, ErrorMessage } from 'formik'
 AutoForm - Automatically generate a Formik out of Yup Schemas
 ----------------------------------------------------------------------------------
 A YUP schema that wishes to automatically generate a form **MUST** have a "meta"
-property on each field of the schema. The structure of the meta tag must be an
-object with the following properties:
-direction   -   Optional    -   Like flex: column / row, default: column
+property on each field of the schema and optional on the schema itself.
+The structure of a field meta tag must be an object with the following properties:
 id          -   Mandatory   -   The id of the field.
 name        -   Mandatory   -   The name of the field.
 type        -   Optional    -   The field type (text, email etc.), else is 'text'
@@ -16,7 +16,11 @@ where       -   Mandatory   -   An object describing the position of the field:
     row     -   Mandatory   -   The row number in which to place the field.
 props       -   Optional    -   An object with props to spread on the field.
 ----------------------------------------------------------------------------------
-Example:
+The structure of a schema meta tag must be an object with the following property:
+----------------------------------------------------------------------------------
+direction   -   Optional    -   Like flex: column / row, default: column
+----------------------------------------------------------------------------------
+Example field meta:
 { id: 'phone-no',
   name: 'phone-no',
   type: 'tel',
@@ -29,6 +33,9 @@ Example:
   }
 }
 ----------------------------------------------------------------------------------
+Example schema meta:
+{ direction: 'row' }
+----------------------------------------------------------------------------------
  */
 const AutoForm = ({
     onSubmit,
@@ -39,7 +46,7 @@ const AutoForm = ({
     const { fields } = schema.describe()
     const fieldsKeys = Object.keys(fields)
 
-    const addOrSub = 0 || schema?.spec?.meta?.direction === 'row'
+    const addOrSub = schema.spec?.meta?.direction === 'row' ? 1 : 0
 
     let columns = 0, rows = 0
 
@@ -49,7 +56,8 @@ const AutoForm = ({
     })
     columns *= 2               /* Each column has two elements */
     rows *= (2 + addOrSub) + 1 /* Each row has one for the elements and one for the error.
-                                  The extra row is for the button */
+                                  In row mode, one is for the label, one for the element and
+                                  one is for the error. The extra row is for the button */
 
     let columnsTemplate = new Array(columns).fill('auto').join(' ')
     let rowsTemplate = new Array(rows).fill('auto').join(' ')
@@ -112,5 +120,10 @@ const AutoForm = ({
             </Form>
         </Formik>
     )
+}
+AutoForm.propTypes = {
+    onSubmit: propTypes.func,
+    schema: propTypes.object,
+    submitText: propTypes.string,
 }
 export default AutoForm
