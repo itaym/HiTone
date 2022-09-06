@@ -3,9 +3,10 @@
   bottom: 0;
   display: flex;
   justify-content: space-evenly;
+  left: 0;
   padding: 12px;
   position: fixed;
-  width: 100%;
+  right: 0;
   z-index: 999999;
 }
 .message {

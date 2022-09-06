@@ -19,36 +19,31 @@ const registration = async (req, res) => {
     let user = {}
 
     try {
-        if (req.method !== 'POST') {
-            error = statusHttp = httpStatus.METHOD_NOT_ALLOWED
-        }
-        else {
-            const email = req.body.email.toLowerCase()
-            const password = req.body.password
-            const data = req.body
+        const email = req.body.email.toLowerCase()
+        const password = req.body.password
+        const data = req.body
 
-            delete data.email
-            delete data.password
+        delete data.email
+        delete data.password
 
-            try {
-                user = await MongoDb.addUser(email, password, data)
-            }
-            catch (e) {
-                statusHttp = httpStatus.CONFLICT
-            }
-            if (statusHttp === httpStatus.OK) {
-                error = undefined
-                delete user.password
-                await MongoDb.setLastLogin(email);
-            }
-            token = jwt.sign(
-                { user },
-                process.env.JWT_SECRET,
-                {
-                    expiresIn: Math.floor(cookieOptions.maxAge / TIME_UNITS.SECOND),
-                }
-            )
+        try {
+            user = await MongoDb.addUser(email, password, data)
         }
+        catch (e) {
+            statusHttp = httpStatus.CONFLICT
+        }
+        if (statusHttp === httpStatus.OK) {
+            error = undefined
+            delete user.password
+            await MongoDb.setLastLogin(email);
+        }
+        token = jwt.sign(
+            { user },
+            process.env.JWT_SECRET,
+            {
+                expiresIn: Math.floor(cookieOptions.maxAge / TIME_UNITS.SECOND),
+            }
+        )
     }
     catch (e) {
         error = statusHttp = httpStatus.INTERNAL_SERVER_ERROR

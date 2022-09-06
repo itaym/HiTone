@@ -104,7 +104,7 @@ export const _yupRegistrationSchema = (t) => (Yup.object().meta({ direction: sch
     passwordConfirmation: Yup.string()
         .default('')
         .label(t('yup.password_verify'))
-        .meta({ id: 'passwordConfirm', name: 'passwordConfirm', type: 'password', where: { column: 1, row: 3 }})
+        .meta({ id: 'passwordConfirmation', name: 'passwordConfirmation', type: 'password', where: { column: 1, row: 3 }})
         .oneOf([Yup.ref('password'), null], t('yup.password_must_match')),
     firstName: Yup.string()
         .default('')

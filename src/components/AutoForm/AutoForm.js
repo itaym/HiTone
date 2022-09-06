@@ -109,9 +109,8 @@ const AutoForm = ({
                             <div
                                 key={`error_${index}`}
                                 style={errorStyle}>
-                                {/* todo: Need to understand this shit */}
                                 <ErrorMessage
-                                    className={styles.form__error}
+                                    className={styles.error}
                                     component="div"
                                     name={field}/>&nbsp;</div>,
                         ])
