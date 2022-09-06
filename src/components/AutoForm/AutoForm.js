@@ -121,8 +121,8 @@ const AutoForm = ({
     )
 }
 AutoForm.propTypes = {
-    onSubmit: propTypes.func,
-    schema: propTypes.object,
-    submitText: propTypes.string,
+    onSubmit: propTypes.func.isRequired,
+    schema: propTypes.object.isRequired,
+    submitText: propTypes.string.isRequired,
 }
 export default AutoForm

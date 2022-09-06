@@ -1,0 +1,49 @@
+.errorElement {
+  background-color: var(--bg-error);
+  border-radius: 12px;
+  border: 2px solid var(--border-color);
+  color: var(--text-main-color);
+  display: flex;
+  height: 50px;
+  justify-content: space-evenly;
+  line-height: 33px;
+  margin: 6px 0;
+  overflow: hidden;
+  padding: 6px;
+  transition: all 1s  ease-in;
+  width: 100%;
+  .text {
+    flex-grow: 1;
+    margin: 0 6px;
+  }
+  .time {
+    border-right: 1px solid var(--border-color);
+    color: #ffa50082;
+    padding: 0 12px;
+  }
+  .x {
+    border-right: 1px solid var(--border-color);
+    color: black;
+    cursor: pointer;
+    font-weight: 900;
+    padding: 0 12px;
+  }
+  &.minimize {
+    border: 0 solid var(--border-color);
+    height: 0;
+    margin: 0 0;
+    padding: 0;
+  }
+}
+[dir=ltr] {
+  .errorElement {
+    .time {
+      border-left: 1px solid var(--border-color);
+      border-right: none;
+    }
+    .x {
+      border-left: 1px solid var(--border-color);
+      border-right: none;
+    }
+  }
+}

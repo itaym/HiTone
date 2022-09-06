@@ -1,5 +1,6 @@
 import '../styles/global.scss'
 import CookieDisclaimer from '@/src/components/CookieDisclaimer'
+import ErrorsManager from '@/components/ErrorsManager'
 import Header from '@/components/Header'
 import TopMenu from '@/components/TopMenu'
 import { Provider, useDispatch } from 'react-redux'
@@ -22,6 +23,7 @@ function MyApp({ Component, pageProps }) {
     return (
         <Provider store={store}>
             <div className={'page-container'} dir={t('globals.direction')}>
+                <ErrorsManager />
                 <Header />
                 <TopMenu />
                 <Component {...pageProps} />
