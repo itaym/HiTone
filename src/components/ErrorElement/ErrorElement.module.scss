@@ -31,8 +31,9 @@
   &.minimize {
     border: 0 solid var(--border-color);
     height: 0;
+    line-height: 6px;
     margin: 0 0;
-    padding: 0;
+    padding: 0 6px;
   }
 }
 [dir=ltr] {

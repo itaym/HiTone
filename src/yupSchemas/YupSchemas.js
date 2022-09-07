@@ -63,14 +63,14 @@ export const _yupLoginSchema = (t) => (Yup.object().shape({
         .default('')
         .email(t('yup.invalid_email'))
         .label(t('yup.email'))
-        .meta({ id: 'email', name: 'email', type: 'email', where: { column: 1, row: 1 }})
+        .meta({ type: 'email', where: { column: 1, row: 1 }})
         .required(t('yup.email_is_required')),
     password: Yup.string()
         .default('')
         .label(t('yup.password'))
         .matches(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}/, 'yup.password_rules')
         .max(24, t('yup.password_too_long'))
-        .meta({ id: 'password', name: 'password', type: 'password', where: { column: 1, row: 2 } })
+        .meta({ type: 'password', where: { column: 1, row: 2 } })
         .min(8, t('yup.password_too_short'))
         .required(t('yup.password_is_required')),
 }))
@@ -80,7 +80,7 @@ export const _yupResetPasswordSchema = (t) => {
         passwordConfirmation: Yup.string()
             .default('')
             .label(t('yup.password_verify'))
-            .meta({ id: 'passwordConfirm', name: 'passwordConfirm', type: 'password', where: { column: 1, row: 3 }})
+            .meta({ type: 'password', where: { column: 1, row: 3 }})
             .oneOf([Yup.ref('password'), null], t('yup.password_must_match')),
     })
     return verifyField.concat(_yupLoginSchema(t))
@@ -91,7 +91,7 @@ export const _yupRegistrationSchema = (t) => (Yup.object().meta({ direction: sch
         .default('')
         .email(t('yup.invalid_email'))
         .label(t('yup.email'))
-        .meta({ id: 'email', name: 'email', type: 'email', where: { column: 1, row: 1 }})
+        .meta({ type: 'email', where: { column: 1, row: 1 }})
         .required(t('yup.email_is_required')),
     password: Yup.string()
         .default('')
@@ -99,24 +99,24 @@ export const _yupRegistrationSchema = (t) => (Yup.object().meta({ direction: sch
         .min(8, t('yup.password_too_short'))
         .max(24, t('yup.password_too_long'))
         .matches(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}/, 'yup.password_rules')
-        .meta({ id: 'password', name: 'password', type: 'password', where: { column: 1, row: 2 }})
+        .meta({ type: 'password', where: { column: 1, row: 2 }})
         .required(t('yup.password_is_required')),
     passwordConfirmation: Yup.string()
         .default('')
         .label(t('yup.password_verify'))
-        .meta({ id: 'passwordConfirmation', name: 'passwordConfirmation', type: 'password', where: { column: 1, row: 3 }})
+        .meta({ type: 'password', where: { column: 1, row: 3 }})
         .oneOf([Yup.ref('password'), null], t('yup.password_must_match')),
     firstName: Yup.string()
         .default('')
         .label(t('yup.first_name'))
         .max(24, t('yup.field_is_the_most', { number: 24}))
-        .meta({ id: 'firstName', name: 'firstName', type: 'text', where: { column: 2, row: 1 }})
+        .meta({ type: 'text', where: { column: 2, row: 1 }})
         .min(2, t('yup.field_is_at_least', { number: 2 }))
         .required(t('yup.field_is_required')),
     middleName: Yup.string()
         .default('')
         .label(t('yup.middle_name'))
-        .meta({ id: 'middleName', name: 'middleName', type: 'text', where: { column: 2, row: 2 }})
+        .meta({ type: 'text', where: { column: 2, row: 2 }})
         .oneOfSchemas([
             Yup.string()
                 .max(24, t('yup.field_is_the_most', { number: 24}))
@@ -129,7 +129,7 @@ export const _yupRegistrationSchema = (t) => (Yup.object().meta({ direction: sch
         .default('')
         .label(t('yup.last_name'))
         .max(24, t('yup.field_is_the_most', { number: 24}))
-        .meta({ id: 'lastName', name: 'lastName', type: 'text', where: { column: 2, row: 3 }})
+        .meta({ type: 'text', where: { column: 2, row: 3 }})
         .min(2, t('yup.field_is_at_least', { number: 2 }))
         .required(t('yup.field_is_required'))
         .trim(),
@@ -137,7 +137,7 @@ export const _yupRegistrationSchema = (t) => (Yup.object().meta({ direction: sch
         .default(getDate({}))
         .label(t('yup.birth_date'))
         .max(getDate({ addYears: -18, format }), t('yup.maximum_date', { date: getDate({ addYears: -18, format }).toLocaleDateString()}))
-        .meta({ id: 'birthDate', name: 'birthDate', type: 'date', where: { column: 3, row: 1 }, props: {placeholder: t('globals.date_format')}})
+        .meta({ type: 'date', where: { column: 3, row: 1 }, props: {placeholder: t('globals.date_format')}})
         .min(getDate({ addYears: -120, format }), t('yup.minimum_date', { date: getDate({ addYears: -120, format }).toLocaleDateString()}))
         .required(t('yup.field_is_required'))
         //.transform(parseI18nDate(t)),
