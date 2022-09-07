@@ -14,7 +14,7 @@ import { useTranslation } from 'next-i18next'
 import { yupResetPasswordSchema } from '@/src/yupSchemas'
 
 // noinspection JSUnusedGlobalSymbols
-export const getServerSideProps  = async function ({ locale, req }) {
+export const getServerSideProps = async function ({ locale, req }) {
     return {
         props: {
             fallback: true,
@@ -73,15 +73,10 @@ const ResetPassword = ({ user }) => {
         ]
     }), [])
     return (
-        <>
-            <Header />
-            <TopMenu />
-            <div className={styles.main}>
-
-                <h1>{t('pages.reset_password.title')}</h1>
-                {sections[status]}
-            </div>
-        </>
+        <div className={styles.main}>
+            <h1>{t('pages.reset_password.title')}</h1>
+            {sections[status]}
+        </div>
     )
 }
 // noinspection JSUnusedGlobalSymbols
