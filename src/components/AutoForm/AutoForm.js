@@ -8,8 +8,6 @@ AutoForm - Automatically generate a Formik out of Yup Schemas
 A YUP schema that wishes to automatically generate a form **MUST** have a "meta"
 property on each field of the schema and optional on the schema itself.
 The structure of a field meta tag must be an object with the following properties:
-id          -   Mandatory   -   The id of the field.
-name        -   Mandatory   -   The name of the field.
 type        -   Optional    -   The field type (text, email etc.), else is 'text'
 where       -   Mandatory   -   An object describing the position of the field:
     column  -   Mandatory   -   The column number in which fo place the field.
@@ -94,15 +92,15 @@ const AutoForm = ({
                     return (
                         [
                             <label
-                                htmlFor={fields[field].id}
+                                htmlFor={field}
                                 key={`label_${index}`}
                                 style={labelStyle}>
                                 {fields[field]?.label}
                             </label>,
                             <Field
-                                id={fields[field].meta.id}
+                                id={field}
                                 key={`field_${index}`}
-                                name={fields[field].meta.name}
+                                name={field}
                                 style={fieldStyle}
                                 type={fields[field].meta?.type || 'text'}
                                 {...(fields[field].meta?.props || {})}/>,
