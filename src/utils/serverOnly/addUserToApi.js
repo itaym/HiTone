@@ -1,4 +1,4 @@
-import { getUserFromRequest } from '@/utils/index'
+import { getUserFromRequest } from '@/utils/serverOnly/index'
 
 const addUserToApi = (handler) => {
     return function(req, res) {
