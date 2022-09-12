@@ -1,0 +1,6 @@
+export default {
+    STATUS_PENDING: 'PENDING',
+    STATUS_VIEWED: 'VIEWED',
+    TYPE_ERROR: 'ERROR',
+    TYPE_NOTIFY: 'NOTIFY',
+}
