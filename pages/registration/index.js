@@ -1,12 +1,11 @@
 import AutoForm from '@/components/AutoForm'
 import Conditional from '@/components/Conditional'
-import getUserFromRequest from '@/utils/getUserFromRequest'
+import getUserFromRequest from '@/utils/serverOnly/getUserFromRequest'
 import styles from '../login/login.module.scss'
-import { clearError } from '@/redux/actions/root'
 import { logout, registration } from '@/redux/actions/users'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useCallback, useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useTranslation } from 'next-i18next'
 import { yupRegistrationSchema } from '@/src/yupSchemas'
 
@@ -24,15 +23,11 @@ export const getServerSideProps  = async function ({ locale, req }) {
 const Registration = ({ user }) => {
     const { t } = useTranslation('common')
     const dispatch = useDispatch()
-    const error = useSelector(({ errors }) => errors[errors.length - 1])
     const [showForm, setShowForm] = useState({ show: false })
 
     const onSubmit = useCallback((values) => {
-        if (error) {
-            dispatch(clearError(error))
-        }
         dispatch((registration(values)))
-    }, [dispatch, error])
+    }, [dispatch])
 
     const onResize = useCallback(() => setShowForm({ show: true }) , [])
 
@@ -44,7 +39,7 @@ const Registration = ({ user }) => {
         setShowForm({ show: true })
 
         return () => window.removeEventListener('resize', onResize)
-    }, [dispatch, error, user])
+    }, [dispatch, onResize, user])
 
     return (
         <div className={styles.main}>

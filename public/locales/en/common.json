@@ -1,9 +1,11 @@
 {
   "globals": {
     "--- EXCLUDE TRANSLATION ---": "-",
-    "date_format": "yyyy-MM-dd",
+    "date_format": "MM/dd/yyyy",
+    "date_time_format": "MM/dd/yyyy HH:mm:ss",
     "direction": "ltr",
-    "locale": "en"
+    "locale": "en",
+    "time_format": "HH:mm:ss"
   },
   "components": {
     "CookieDisclaimer": {
@@ -13,6 +15,9 @@
     "header": {
     },
     "footer": {
+    },
+    "NotificationElement": {
+      "from": "from"
     },
     "TopMenu": {
       "about": "About",
