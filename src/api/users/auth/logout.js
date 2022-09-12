@@ -1,6 +1,6 @@
 import httpStatus from 'http-status'
 import jwt from 'jsonwebtoken'
-import responseJson from '@/utils/responseJson'
+import responseJson from '@/utils/serverOnly/responseJson'
 import { TIME_UNITS } from '@/src/enumerators'
 import { strCookie } from '@/src/utils'
 

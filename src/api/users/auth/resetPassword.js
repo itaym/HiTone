@@ -1,9 +1,9 @@
 import * as path from 'path'
 import MongoDb from '@/src/mongoDb'
 import httpStatus from 'http-status'
-import responseJson from '@/utils/responseJson'
+import responseJson from '@/utils/serverOnly/responseJson'
 import { EmailTemplates } from '@/src/emailTemplates'
-import { HTML_TEMPLATES } from '@/enumerators/enumerators'
+import { HTML_TEMPLATES } from '@/src/enumerators'
 import { SMTPClient, Message } from 'emailjs'
 import { stringToLiteralWithData } from '@/src/utils'
 

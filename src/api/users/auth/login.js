@@ -1,10 +1,10 @@
 import MongoDb from '@/src/mongoDb'
 import httpStatus from 'http-status'
 import jwt from 'jsonwebtoken'
-import responseJson from '@/utils/responseJson'
+import responseJson from '@/utils/serverOnly/responseJson'
 import strCookie from '@/utils/strCookie'
 import { TIME_UNITS } from '@/src/enumerators'
-import { sha512 } from '@/src/utils'
+import { sha512 } from '@/utils/serverOnly'
 
 const cookieOptions = {
     expires: new Date(new Date().valueOf() + TIME_UNITS.YEAR),
@@ -30,18 +30,20 @@ const login = async (req, res) => {
             try {
                 user = await MongoDb.getUser(email)
                 if (!user) {
-                    statusHttp = httpStatus.NOT_FOUND;
+                    statusHttp = httpStatus.NOT_FOUND
                 }
                 else {
-                    const reCreateHash = sha512( password, user.password.salt);
+                    const reCreateHash = sha512( password, user.password.salt)
+
                     if (user.password.hash !== reCreateHash.hash) {
-                        statusHttp = httpStatus.NOT_FOUND;
+                        statusHttp = httpStatus.NOT_FOUND
+                        user = {}
                     }
                 }
             }
             catch (e) {
-                statusHttp = httpStatus.INTERNAL_SERVER_ERROR;
-                error = e.message;
+                statusHttp = httpStatus.INTERNAL_SERVER_ERROR
+                error = 'errors.some_thing_went_wrong'
             }
             if (statusHttp === httpStatus.OK) {
                 error = undefined

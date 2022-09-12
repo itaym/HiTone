@@ -1,5 +1,5 @@
 import Router from 'next/router'
-import { TIME_UNITS } from '@/enumerators/enumerators'
+import { TIME_UNITS } from '@/src/enumerators'
 
 let defaultKeys = {
     method: 'GET',
