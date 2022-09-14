@@ -1,5 +1,3 @@
-import { NOTIFICATION } from '@/src/enumerators'
-
 module.exports =  {
     notifications: {
         validator: {
@@ -27,14 +25,14 @@ module.exports =  {
                     },
                     status: {
                         bsonType: "string",
-                        enum: [NOTIFICATION.STATUS_PENDING, NOTIFICATION.STATUS_VIEWED],
+                        enum: ['PENDING', 'VIEWED'],
                         description: "The status of the message and is required",
                     }
                 }
             }
         }
     },
-    resetPassword: {
+    reset_password: {
         validator: {
             $jsonSchema: {
                 bsonType: "object",

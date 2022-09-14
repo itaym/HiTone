@@ -3,12 +3,13 @@ import { genRandomString, sha512 } from '@/src/utils/serverOnly'
 
 export const _addUser = async function(name, password, data) {
     await this._verifyConnection()
+
     if (!name || !password) {
         throw new Error('No user name or password')
     }
     const userName = name.toLowerCase()
-
     const user = await this.getUser(userName)
+
     if (user) {
         throw {message: 'User already exists'}
     }
@@ -20,12 +21,16 @@ export const _addUser = async function(name, password, data) {
     const salt = genRandomString(128)
     const passObject = sha512( password, salt)
     const result = await this._db.collection('users').insertOne({name: userName, password: passObject})
+
     newData.userId = result['insertedId']
+    newData.birthDate = new Date(newData.birthDate)
+
     await this._db.collection('users_details').insertOne(newData)
     return await this._getUser(userName)
 }
 export const _createDefaultUser = async function() {
     await this._verifyConnection()
+
     const collectionUsers = await this._db.collection('users')
     // noinspection JSUnresolvedFunction
     const users = await collectionUsers.find({}).toArray()
@@ -37,6 +42,9 @@ export const _createDefaultUser = async function() {
 }
 export const _delUser = async function(name) {
     await this._verifyConnection()
+
+    const user = await this._db.collection('users').findOne({ name })
+    await this._db.collection('users_details').deleteOne({ userId: user['_id'] })
     await this._db.collection('users').deleteOne({ name })
 }
 export const _getUser = async function(name = Math.random() + '') {
@@ -61,10 +69,11 @@ export const _getUserWithDetails = async function(name = Math.random() + '') {
         throw {message: 'User was not found'}
     }
     const details = await this._db.collection('users_details').findOne({ userId: user['_id']})
-    return { user, details }
+    return { user, details: { middleName: '', ...details} }
 }
 export const _setLastLogin = async function(name) {
     await this._verifyConnection()
+
     const user = await this.getUser(name)
 
     if(!user) {
@@ -72,7 +81,9 @@ export const _setLastLogin = async function(name) {
     }
     await this._updateUser(user['_id'], { lastLogin: new Date() })
 }
+
 export const _updateUser = async function(objectId, data) {
     await this._verifyConnection()
+
     await this._db.collection('users').updateOne({ _id: objectId },{ $set: data } )
 }
