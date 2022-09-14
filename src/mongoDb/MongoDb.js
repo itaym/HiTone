@@ -11,7 +11,6 @@ class MongoDb {
         this._addUser = users._addUser
         this._close = mongoDb._close
         this._connect = mongoDb._connect
-        this._createCollections = mongoDb._createCollections
         this._createDefaultUser = users._createDefaultUser
         this._delNotification = notifications._delNotification
         this._delResetPassword = resetPassword._delResetPassword
@@ -22,8 +21,9 @@ class MongoDb {
         this._getUserWithDetails = users._getUserWithDetails
         this._getUsers = users._getUsers
         this._isConnected = false
-        this._onConnect = mongoDb._onConnect
-        this._onDisconnect = mongoDb._onDisconnect
+        this._migration = mongoDb._migration
+        this._onConnect = mongoDb._onConnect.bind(this)
+        this._onDisconnect = mongoDb._onDisconnect.bind(this)
         this._setLastLogin = users._setLastLogin
         this._updateUser = users._updateUser
         this._verifyConnection = mongoDb._verifyConnection
