@@ -1,7 +1,7 @@
 import MongoDb from '@/src/mongoDb'
 import httpStatus from 'http-status'
 import jwt from 'jsonwebtoken'
-import responseJson from '@/utils/responseJson'
+import responseJson from '@/utils/serverOnly/responseJson'
 import strCookie from '@/utils/strCookie'
 import { TIME_UNITS } from '@/src/enumerators'
 
@@ -46,7 +46,9 @@ const registration = async (req, res) => {
         )
     }
     catch (e) {
-        error = statusHttp = httpStatus.INTERNAL_SERVER_ERROR
+        statusHttp = httpStatus.INTERNAL_SERVER_ERROR
+        error = 'errors.some_thing_went_wrong'
+
     }
     if (statusHttp === httpStatus.OK) {
         res.setHeader('location', '/')

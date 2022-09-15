@@ -1,8 +1,8 @@
 import getUser from '@/src/api/users/getUser'
 import httpStatus from 'http-status'
 import registration from '@/src/api/users/registration'
-import responseJson from '@/utils/responseJson'
-import { addUserToApi } from '@/src/utils'
+import responseJson from '@/utils/serverOnly/responseJson'
+import { addUserToApi } from '@/src/utils/serverOnly'
 
 const users = async (req, res, user) => {
     switch (req.method) {

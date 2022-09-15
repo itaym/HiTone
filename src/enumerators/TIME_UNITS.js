@@ -1,0 +1,11 @@
+export default {
+    MILLISECOND: 1,
+    SECOND: 1000,
+    MINUTE: 60_000,
+    HOUR: 3_600_000,
+    DAY: 86_400_000,
+    WEEK: 604_800_000,
+    MONTH_AVG: 2_628_000_000,
+    YEAR: 31_536_000_000,
+    LEAP_YEAR: 31_622_400_000
+}

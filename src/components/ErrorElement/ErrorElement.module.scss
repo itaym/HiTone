@@ -16,6 +16,12 @@
     flex-grow: 1;
     margin: 0 6px;
   }
+  .date {
+    border-left: 1px solid var(--border-color);
+    color: var(--text-main-color);
+    direction: ltr;
+    padding: 0 12px;
+  }
   .time {
     border-right: 1px solid var(--border-color);
     color: #ffa50082;
@@ -38,6 +44,11 @@
 }
 [dir=ltr] {
   .errorElement {
+    .date {
+      border-right: 1px solid var(--border-color);
+      border-left: none;
+      direction: ltr;
+    }
     .time {
       border-left: 1px solid var(--border-color);
       border-right: none;

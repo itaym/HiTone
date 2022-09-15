@@ -1,12 +1,11 @@
 import AutoForm from '@/components/AutoForm'
-import getUserFromRequest from '@/utils/getUserFromRequest'
+import getUserFromRequest from '@/utils/serverOnly/getUserFromRequest'
 import styles from './login.module.scss'
-import { clearError } from '@/redux/actions/root'
 import { useTranslation } from 'next-i18next'
 import { login, logout } from '@/redux/actions/users'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useCallback, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { yupLoginSchema } from '@/src/yupSchemas'
 import Link from 'next/link'
 
@@ -24,14 +23,10 @@ export const getServerSideProps  = async function ({ locale, req }) {
 const Login = ({ user }) => {
     const { t } = useTranslation('common')
     const dispatch = useDispatch()
-    const error = useSelector(({ errors }) => errors[errors.length - 1])
 
     const onSubmit = useCallback((values) => {
-        if (error) {
-            dispatch(clearError(error))
-        }
         dispatch((login(values)))
-    }, [dispatch, error])
+    }, [dispatch])
 
     useEffect(() => {
         if (user._id) {

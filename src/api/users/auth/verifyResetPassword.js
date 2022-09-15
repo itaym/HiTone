@@ -1,6 +1,6 @@
 import MongoDb from '@/src/mongoDb'
 import httpStatus from 'http-status'
-import responseJson from '@/utils/responseJson'
+import responseJson from '@/utils/serverOnly/responseJson'
 
 const verifyResetPassword = async (req, res) => {
     let statusHttp = httpStatus.OK
