@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { fetchApi } from '@/src/utils'
+import { createError, fetchApi } from '@/src/utils'
 
 const ACTION_GET_USER = 'ACTION_GET_USER'
 const ACTION_LOGIN = 'ACTION_LOGIN'
@@ -15,9 +15,9 @@ export const getUser = createAsyncThunk(
             if (json.ok) {
                 return json.payload
             }
-            return rejectWithValue( json.error )
+            return rejectWithValue(createError(json.error))
         }
-        catch ( e ) { return rejectWithValue(e.message) }
+        catch ( e ) { return rejectWithValue(createError(e.message)) }
     }
 )
 
@@ -29,10 +29,10 @@ export const login = createAsyncThunk(
             if (json.ok) {
                 return json.payload
             }
-            return rejectWithValue(json.error)
+            return rejectWithValue(createError(json.error))
         }
         catch (e) {
-            return rejectWithValue(e.message)
+            return rejectWithValue(createError(e.message))
         }
     }
 )
@@ -46,9 +46,9 @@ export const logout = createAsyncThunk(
             if (json.ok) {
                 return json.payload
             }
-            return rejectWithValue(json.error)
+            return rejectWithValue(createError(json.error))
         }
-        catch (e) { return rejectWithValue(e.message) }
+        catch (e) { return rejectWithValue(createError(e.message)) }
     }
 )
 
@@ -56,13 +56,13 @@ export const registration = createAsyncThunk(
     ACTION_REGISTRATION,
     async ( args, { rejectWithValue }) => {
         try {
-            const json = await fetchApi('/users/auth/registration', { method: 'POST'}, args)
+            const json = await fetchApi('/users', { method: 'POST'}, args)
             if (json.ok) {
                 return json.payload
             }
-            return rejectWithValue(json.error)
+            return rejectWithValue(createError(json.error))
         }
-        catch (e) { return rejectWithValue(e.message) }
+        catch (e) { return rejectWithValue(createError(e.message)) }
     }
 )
 

@@ -1,17 +1,21 @@
 :root {
+  --bg-black-input: rgba(70, 90, 126, 0.4);
+  --bg-black-transparent: rgba(0,0,0,0.4);
+  --bg-black: rgba(0,0,0,0.8);
+  --bg-error: rgba(194, 61, 61, 0.90);
+  --bg-notification: rgba(61, 94, 194, 0.90);
+  --border-color: rgba(4, 4, 4, 0.75);
+  --color-error: #d63737;
   --color-orange: #ffa500;
   --color-red: #ff0000;
-  --color-error: #d63737;
-  --bg-black-transparent: rgba(0,0,0,0.4);
-  --bg-black-input: rgba(70, 90, 126, 0.4);
-  --bg-black: rgba(0,0,0,0.8);
-  --border-color: rgba(67, 67, 67, 0.5);
+  --color-white: #e9dede;
   --font-size-bigger: 32px;
   --font-size-biggest: 48px;
   --font-size-regular: 16px;
   --form-grid-column-gap: 12px;
   --form-grid-row-gap: 12px;
   --h1-margin: 24px 0 0;
+  --text-main-color: var(--color-white);
   --title-margin: 48px;
 
 //  css rtl ltr variables

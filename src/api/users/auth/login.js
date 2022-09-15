@@ -1,19 +1,21 @@
 import MongoDb from '@/src/mongoDb'
 import httpStatus from 'http-status'
 import jwt from 'jsonwebtoken'
-import responseJson from '@/utils/responseJson'
+import responseJson from '@/utils/serverOnly/responseJson'
 import strCookie from '@/utils/strCookie'
 import { TIME_UNITS } from '@/src/enumerators'
+import { sha512 } from '@/utils/serverOnly'
 
 const cookieOptions = {
+    expires: new Date(new Date().valueOf() + TIME_UNITS.YEAR),
     httpOnly: true,
-    maxAge: TIME_UNITS.YEAR * 120,
+    maxAge: TIME_UNITS.YEAR,
     path: "/",
     sameSite: "Strict",
     secure: process.env.NODE_ENV === "production",
 }
-const registration = async (req, res) => {
-    let error = 'errors.user_cannot_be_created'
+const login = async (req, res) => {
+    let error = 'errors.user_was_not_found'
     let statusHttp = httpStatus.OK
     let token = ':('
     let user = {}
@@ -25,16 +27,23 @@ const registration = async (req, res) => {
         else {
             const email = req.body.email.toLowerCase()
             const password = req.body.password
-            const data = req.body
-
-            delete data.email
-            delete data.password
-
             try {
-                user = await MongoDb.addUser(email, password, data)
+                user = await MongoDb.getUser(email)
+                if (!user) {
+                    statusHttp = httpStatus.NOT_FOUND
+                }
+                else {
+                    const reCreateHash = sha512( password, user.password.salt)
+
+                    if (user.password.hash !== reCreateHash.hash) {
+                        statusHttp = httpStatus.NOT_FOUND
+                        user = {}
+                    }
+                }
             }
             catch (e) {
-                statusHttp = httpStatus.CONFLICT
+                statusHttp = httpStatus.INTERNAL_SERVER_ERROR
+                error = 'errors.some_thing_went_wrong'
             }
             if (statusHttp === httpStatus.OK) {
                 error = undefined
@@ -43,8 +52,7 @@ const registration = async (req, res) => {
             }
             token = jwt.sign(
                 { user },
-                process.env.JWT_SECRET,
-                {
+                process.env.JWT_SECRET, {
                     expiresIn: Math.floor(cookieOptions.maxAge / TIME_UNITS.SECOND),
                 }
             )
@@ -61,4 +69,4 @@ const registration = async (req, res) => {
     res.status(statusHttp).json(responseJson(statusHttp === httpStatus.OK, { user }, statusHttp, error))
 }
 // noinspection JSUnusedGlobalSymbols
-export default registration
+export default login

@@ -1,0 +1,20 @@
+.main {
+  background-color: var(--bg-black);
+  bottom: 0;
+  display: flex;
+  justify-content: space-evenly;
+  left: 0;
+  padding: 12px;
+  position: fixed;
+  right: 0;
+  z-index: 999999;
+}
+.message {
+  color: var(--text-main-color);
+  padding: 12px;
+}
+.button {
+  cursor: pointer;
+  height: 50px;
+  margin-top: 0;
+}

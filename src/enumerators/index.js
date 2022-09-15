@@ -1,7 +1,9 @@
-import { HTML_TEMPLATES as _HTML_TEMPLATES} from './enumerators'
-import { TIME_UNITS as _TIME_UNITS } from './enumerators'
-import { UNIT_TYPES as _UNIT_TYPES} from './enumerators'
+import _HTML_TEMPLATES from './HTML_TEMPLATES'
+import _NOTIFICATION from './NOTIFICATION'
+import _TIME_UNITS from './TIME_UNITS'
+import _UNIT_TYPES from './UNIT_TYPES'
 
 export const HTML_TEMPLATES = _HTML_TEMPLATES
+export const NOTIFICATION = _NOTIFICATION
 export const TIME_UNITS = _TIME_UNITS
 export const UNIT_TYPES = _UNIT_TYPES

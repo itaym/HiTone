@@ -1,3 +1,4 @@
+import propTypes from 'prop-types'
 import styles from './AutoForm.module.scss'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 /*
@@ -5,17 +6,19 @@ import { Formik, Form, Field, ErrorMessage } from 'formik'
 AutoForm - Automatically generate a Formik out of Yup Schemas
 ----------------------------------------------------------------------------------
 A YUP schema that wishes to automatically generate a form **MUST** have a "meta"
-property on each field of the schema. The structure of the meta tag must be an
-object with the following properties:
-id          -   Mandatory   -   The id of the field.
-name        -   Mandatory   -   The name of the field.
+property on each field of the schema and optional on the schema itself.
+The structure of a field meta tag must be an object with the following properties:
 type        -   Optional    -   The field type (text, email etc.), else is 'text'
 where       -   Mandatory   -   An object describing the position of the field:
     column  -   Mandatory   -   The column number in which fo place the field.
     row     -   Mandatory   -   The row number in which to place the field.
 props       -   Optional    -   An object with props to spread on the field.
 ----------------------------------------------------------------------------------
-Example:
+The structure of a schema meta tag must be an object with the following property:
+----------------------------------------------------------------------------------
+direction   -   Optional    -   Like flex: column / row, default: column
+----------------------------------------------------------------------------------
+Example field meta:
 { id: 'phone-no',
   name: 'phone-no',
   type: 'tel',
@@ -28,6 +31,9 @@ Example:
   }
 }
 ----------------------------------------------------------------------------------
+Example schema meta:
+{ direction: 'row' }
+----------------------------------------------------------------------------------
  */
 const AutoForm = ({
     onSubmit,
@@ -38,15 +44,18 @@ const AutoForm = ({
     const { fields } = schema.describe()
     const fieldsKeys = Object.keys(fields)
 
+    const addOrSub = schema.spec?.meta?.direction === 'row' ? 1 : 0
+
     let columns = 0, rows = 0
 
     fieldsKeys.forEach((field) => {
         columns = Math.max(columns, fields[field].meta.where.column)
         rows = Math.max(rows, fields[field].meta.where.row)
     })
-    columns *= 2  /* Each column has two elements */
-    rows *= 2 + 1 /* Each row has one for the elements and one for the error.
-                     The extra row is for the button */
+    columns *= 2               /* Each column has two elements */
+    rows *= (2 + addOrSub) + 1 /* Each row has one for the elements and one for the error.
+                                  In row mode, one is for the label, one for the element and
+                                  one is for the error. The extra row is for the button */
 
     let columnsTemplate = new Array(columns).fill('auto').join(' ')
     let rowsTemplate = new Array(rows).fill('auto').join(' ')
@@ -66,16 +75,19 @@ const AutoForm = ({
                 {fieldsKeys.map((field, index) => {
                     const labelStyle = {
                         gridColumnStart: fields[field]?.meta.where.column * 2 - 1,
-                        gridRowStart: fields[field].meta.where.row * 2 - 1,
+                        gridColumnEnd: fields[field]?.meta.where.column * 2 + addOrSub,
+                        gridRowStart: fields[field].meta.where.row * (2 + addOrSub) - 1 - addOrSub,
+                        gridRowEnd: fields[field].meta.where.row * (2 + addOrSub)  - addOrSub,
                     }
                     const fieldStyle = {
-                        gridColumnStart: labelStyle.gridColumnStart + 1,
-                        gridRowStart: labelStyle.gridRowStart,
+                        gridColumnStart: labelStyle.gridColumnEnd - addOrSub * 2,
+                        gridColumnEnd: labelStyle.gridColumnEnd + 1 - addOrSub,
+                        gridRowStart: labelStyle.gridRowStart + addOrSub,
                     }
                     const errorStyle = {
                         gridColumnStart: labelStyle.gridColumnStart,
                         gridColumnEnd: labelStyle.gridColumnStart + 2,
-                        gridRowStart: labelStyle.gridRowStart + 1,
+                        gridRowStart: fieldStyle.gridRowStart + 1,
                     }
                     return (
                         [
@@ -86,17 +98,17 @@ const AutoForm = ({
                                 {fields[field]?.label}
                             </label>,
                             <Field
-                                id={field} name={field}
+                                id={field}
                                 key={`field_${index}`}
+                                name={field}
                                 style={fieldStyle}
-                                type={fields[field]?.meta?.type || 'text'}
+                                type={fields[field].meta?.type || 'text'}
                                 {...(fields[field].meta?.props || {})}/>,
                             <div
                                 key={`error_${index}`}
                                 style={errorStyle}>
-                                {/* todo: Need to understand this shit */}
                                 <ErrorMessage
-                                    className={styles.form__error}
+                                    className={styles.error}
                                     component="div"
                                     name={field}/>&nbsp;</div>,
                         ])
@@ -105,5 +117,10 @@ const AutoForm = ({
             </Form>
         </Formik>
     )
+}
+AutoForm.propTypes = {
+    onSubmit: propTypes.func.isRequired,
+    schema: propTypes.object.isRequired,
+    submitText: propTypes.string.isRequired,
 }
 export default AutoForm

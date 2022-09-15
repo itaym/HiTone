@@ -1,12 +1,17 @@
-import { TIME_UNITS } from '@/enumerators/enumerators'
-
 module.exports =  {
+    notifications: {
+        field: { "to": 1, "status": 1 },
+    },
+    reset_password: {
+        field: { "createdAt": 1 },
+        options: { expireAfterSeconds: 3600 },
+    },
     users: {
         field: { name: 1 },
         options: { unique: true },
     },
-    resetPassword: {
-        field: { "createdAt": 1 },
-        options: { expireAfterSeconds: TIME_UNITS.HOUR / TIME_UNITS.SECOND },
-    }
-};
+    users_details: {
+        field: { userId: 1 },
+        options: { unique: true },
+    },
+}

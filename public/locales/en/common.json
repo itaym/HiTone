@@ -1,14 +1,23 @@
 {
   "globals": {
     "--- EXCLUDE TRANSLATION ---": "-",
-    "date_format": "yyyy-MM-dd",
+    "date_format": "MM/dd/yyyy",
+    "date_time_format": "MM/dd/yyyy HH:mm:ss",
     "direction": "ltr",
-    "locale": "en"
+    "locale": "en",
+    "time_format": "HH:mm:ss"
   },
   "components": {
+    "CookieDisclaimer": {
+      "message": "We use cookies to provide the best experience on our website. This includes cookies for website functionality, to manage our commercial objectives and optimization.",
+      "ok": "Got it"
+    },
     "header": {
     },
     "footer": {
+    },
+    "NotificationElement": {
+      "from": "from"
     },
     "TopMenu": {
       "about": "About",
@@ -54,7 +63,6 @@
       "title": "Join HiTone Family"
     },
     "reset_password": {
-      "forgot_password": "Forgot your password?",
       "reset_button": "Reset password",
       "sub_title": "Create a new password for your HiTones account",
       "sub_title_success": "OK, so what happens now?",
