@@ -3,7 +3,13 @@ import httpStatus from 'http-status'
 import registration from '@/src/api/users/registration'
 import responseJson from '@/utils/serverOnly/responseJson'
 import { addUserToApi } from '@/src/utils/serverOnly'
-
+/**
+ *
+ * @param { Request }  req
+ * @param { Response } res
+ * @param user
+ * @return {Promise<void>}
+ */
 const users = async (req, res, user) => {
     switch (req.method) {
         case 'DELETE':
