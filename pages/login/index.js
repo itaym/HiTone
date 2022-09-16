@@ -1,13 +1,13 @@
 import AutoForm from '@/components/AutoForm'
+import Link from 'next/link'
 import getUserFromRequest from '@/utils/serverOnly/getUserFromRequest'
 import styles from './login.module.scss'
-import { useTranslation } from 'next-i18next'
 import { login, logout } from '@/redux/actions/users'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useCallback, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
+import { useTranslation } from 'next-i18next'
 import { yupLoginSchema } from '@/src/yupSchemas'
-import Link from 'next/link'
 
 // noinspection JSUnusedGlobalSymbols
 export const getServerSideProps  = async function ({ locale, req }) {

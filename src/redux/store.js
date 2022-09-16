@@ -11,6 +11,6 @@ export const store = configureStore({
     devTools: process.env.NODE_ENV !== 'production',
 })
 
-const makeStore = () => store;
+const makeStore = () => store
 
-export const wrapper = createWrapper(makeStore);
+export const wrapper = createWrapper(makeStore)

@@ -57,7 +57,7 @@ const resetPassword = async (req, res) => {
                 ssl: true,
             })
             try {
-                await client.sendAsync(message);
+                await client.sendAsync(message)
             } catch (e) {
                 statusHttp = httpStatus.INTERNAL_SERVER_ERROR
                 error = 'errors.some_thing_went_wrong'
