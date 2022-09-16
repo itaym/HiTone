@@ -75,5 +75,5 @@ export const _verifyConnection = async function() {
     }
     catch {}
     const err = new Error('Error connecting to the DB')
-    throw(err);
+    throw(err)
 }
