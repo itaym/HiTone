@@ -5,7 +5,7 @@ const combineReducersWithRoot = function(rootReducer, reducers) {
         Object.keys(reducers).forEach(reducerName => {
             let domainState = state ? state[reducerName] || {} : {}
             newState[reducerName] = { ...reducers[reducerName](domainState, action)}
-        });
+        })
         return newState
     }
 }
