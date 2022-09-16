@@ -24,7 +24,7 @@ const TopMenu = () => {
         await router.push(
             router.pathname,
             router.asPath,
-            { locale: newLocale, shallow: false });
+            { locale: newLocale, shallow: false })
     }
     return (
         <select onChange={selectChange} className={styles.select} value={locale}>

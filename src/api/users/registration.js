@@ -5,13 +5,6 @@ import responseJson from '@/utils/serverOnly/responseJson'
 import strCookie from '@/utils/strCookie'
 import { TIME_UNITS } from '@/src/enumerators'
 
-const cookieOptions = {
-    httpOnly: true,
-    maxAge: TIME_UNITS.YEAR * 120,
-    path: "/",
-    sameSite: "Strict",
-    secure: process.env.NODE_ENV === "production",
-}
 const registration = async (req, res) => {
     let error = 'errors.user_cannot_be_created'
     let statusHttp = httpStatus.OK
@@ -35,7 +28,7 @@ const registration = async (req, res) => {
         if (statusHttp === httpStatus.OK) {
             error = undefined
             delete user.password
-            await MongoDb.setLastLogin(email);
+            await MongoDb.setLastLogin(email)
         }
         token = jwt.sign(
             { user },

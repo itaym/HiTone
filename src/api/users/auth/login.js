@@ -4,62 +4,55 @@ import jwt from 'jsonwebtoken'
 import responseJson from '@/utils/serverOnly/responseJson'
 import strCookie from '@/utils/strCookie'
 import { TIME_UNITS } from '@/src/enumerators'
+import { getCookieOptions } from '@/src/utils'
 import { sha512 } from '@/utils/serverOnly'
 
-const cookieOptions = {
-    expires: new Date(new Date().valueOf() + TIME_UNITS.YEAR),
-    httpOnly: true,
-    maxAge: TIME_UNITS.YEAR,
-    path: "/",
-    sameSite: "Strict",
-    secure: process.env.NODE_ENV === "production",
-}
 const login = async (req, res) => {
     let error = 'errors.user_was_not_found'
     let statusHttp = httpStatus.OK
     let token = ':('
     let user = {}
 
-    try {
-        if (req.method !== 'POST') {
-            error = statusHttp = httpStatus.METHOD_NOT_ALLOWED
-        }
-        else {
-            const email = req.body.email.toLowerCase()
-            const password = req.body.password
-            try {
-                user = await MongoDb.getUser(email)
-                if (!user) {
-                    statusHttp = httpStatus.NOT_FOUND
-                }
-                else {
-                    const reCreateHash = sha512( password, user.password.salt)
+    if (req.method !== 'POST') {
+        error = statusHttp = httpStatus.METHOD_NOT_ALLOWED
+    }
+    else {
+        const email = req.body.email.toLowerCase()
+        const password = req.body.password
+        try {
+            user = await MongoDb.getUser(email)
+            if (!user) {
+                statusHttp = httpStatus.NOT_FOUND
+            }
+            else {
+                const reCreateHash = sha512( password, user.password.salt)
 
-                    if (user.password.hash !== reCreateHash.hash) {
-                        statusHttp = httpStatus.NOT_FOUND
-                        user = {}
-                    }
+                if (user.password.hash !== reCreateHash.hash) {
+                    statusHttp = httpStatus.NOT_FOUND
+                    user = {}
                 }
             }
-            catch (e) {
-                statusHttp = httpStatus.INTERNAL_SERVER_ERROR
-                error = 'errors.some_thing_went_wrong'
-            }
+        }
+        catch {
+            statusHttp = httpStatus.INTERNAL_SERVER_ERROR
+            error = 'errors.some_thing_went_wrong'
+        }
+        try {
             if (statusHttp === httpStatus.OK) {
                 error = undefined
                 delete user.password
-                await MongoDb.setLastLogin(email);
+                await MongoDb.setLastLogin(email)
             }
             token = jwt.sign(
                 { user },
                 process.env.JWT_SECRET, {
-                    expiresIn: Math.floor(cookieOptions.maxAge / TIME_UNITS.SECOND),
+                    expiresIn: Math.floor(getCookieOptions().maxAge / TIME_UNITS.SECOND),
                 }
             )
         }
-    }
-    catch (e) {
-        error = statusHttp = httpStatus.INTERNAL_SERVER_ERROR
+        catch (e) {
+            error = statusHttp = httpStatus.INTERNAL_SERVER_ERROR
+        }
     }
     if (statusHttp === httpStatus.OK) {
         res.setHeader('location', '/')
