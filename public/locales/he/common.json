@@ -10,10 +10,8 @@
       "message": "אנו משתמשים בעוגיות (cookies) בכדי לספק את החוויה הטובה ביותר באתר שלנו. זה כולל עוגיות (cookies) לפונקציונליות של האתר ובכדי לנהל את היעדים המסחריים והאופטימיזציה שלנו.",
       "ok": "הבנתי"
     },
-    "header": {
-    },
-    "footer": {
-    },
+    "header": {},
+    "footer": {},
     "NotificationElement": {
       "from": "מאת:"
     },
@@ -39,6 +37,7 @@
     "reset_password_verify": "אימות ואישרור"
   },
   "errors": {
+    "connecting_to_db": "בעיה בהתחברות למסד נתונים",
     "method_not_allowed": "הפעולה אינה מאושרת",
     "some_thing_went_wrong": "משהו השתבש, אנא נסה שוב",
     "user_cannot_be_created": "שם המשתמש הזה כבר קיים",
@@ -94,7 +93,7 @@
     "maximum_date": "התאריך לא יכול להיות מאוחר מ-{{date}}",
     "middle_name": "שם אמצעי",
     "minimum_date": "התאריך לא יכול להיות מוקדם מי-{{date}}",
-    "not_found" : "משתמש כזה לא נמצא",
+    "not_found": "משתמש כזה לא נמצא",
     "password": "סיסמא",
     "password_is_required": "הסיסמא היא שדה חובה",
     "password_link": "קרא על מבנה הסיסמא, הקלק כאן",

@@ -3,12 +3,12 @@ import { sleep } from '@/src/utils'
 import { TIME_UNITS } from '@/src/enumerators'
 import { config, up } from 'migrate-mongo'
 // noinspection JSUnusedGlobalSymbols
-export const _close = async function() {
+export const _close = async function () {
     if (this._isConnected) {
         return await this._client.close()
     }
 }
-export const _connect = async function() {
+export const _connect = async function () {
     // noinspection JSCheckFunctionSignatures
     this._client = new MongoClient(process.env.MONGODB_URI, { useUnifiedTopology: true, useNewUrlParser: true, })
     this._client.on('connectionReady', this._onConnect)
@@ -17,23 +17,25 @@ export const _connect = async function() {
     // this._client.on('serverClosed', this._onDisconnect)
 
     await this._client.connect()
-    this._db = await this._client.db( process.env.MONGODB_DB)
+    this._db = await this._client.db(process.env.MONGODB_DB)
     await this._db.command({ ping: 1 })
 
     return this._db
 }
 
-export const _onConnect = async function() {
+export const _onConnect = async function () {
     const self = this
+    //todo: remove the debugger
     if (self._isConnected) debugger
     self._isConnected = true
-    setTimeout(async function() {
-        await self._migration() }, 1000)
+    setTimeout(async function () {
+        await self._migration()
+    }, 1000)
 }
-export const _onDisconnect = function() {
+export const _onDisconnect = function () {
     this._isConnected = false
 }
-export const _migration = async function() {
+export const _migration = async function () {
     await this._verifyConnection()
     try {
         config.set({
@@ -43,12 +45,12 @@ export const _migration = async function() {
         })
         await up(this.db, this._client)
     }
-    catch(e) {
+    catch (e) {
         console.log(e)
     }
 }
-export const _verifyConnection = async function() {
-    if(this._isConnected) return this._isConnected
+export const _verifyConnection = async function () {
+    if (this._isConnected) return this._isConnected
 
     let timeOut = 0
     try {
@@ -66,7 +68,7 @@ export const _verifyConnection = async function() {
             }
         }
     }
-    catch {}
-    const err = new Error('Error connecting to the DB')
-    throw(err)
+    catch { }
+    const err = new Error('errors.connecting_to_db')
+    throw (err)
 }
