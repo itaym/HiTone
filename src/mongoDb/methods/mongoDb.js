@@ -48,7 +48,7 @@ export const _migration = async function() {
         await up(this.db, this._client)
         await sleep(1000)
     }
-    catch(e) {
+    catch (e) {
         console.log(e)
     }
 }
@@ -73,7 +73,7 @@ export const _verifyConnection = async function() {
             }
         }
     }
-    catch {}
-    const err = new Error('Error connecting to the DB')
-    throw(err);
+    catch { }
+    const err = new Error('errors.connecting_to_db')
+    throw (err)
 }

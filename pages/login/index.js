@@ -25,7 +25,7 @@ const Login = ({ user }) => {
     const dispatch = useDispatch()
 
     const onSubmit = useCallback((values) => {
-        dispatch((login(values)))
+        dispatch(login(values))
     }, [dispatch])
 
     useEffect(() => {

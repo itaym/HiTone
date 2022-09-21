@@ -5,13 +5,13 @@ export const _addUser = async function(name, password, data) {
     await this._verifyConnection()
 
     if (!name || !password) {
-        throw new Error('No user name or password')
+        throw new Error('errors.user_was_not_found')
     }
     const userName = name.toLowerCase()
     const user = await this.getUser(userName)
 
     if (user) {
-        throw {message: 'User already exists'}
+        throw new Error('errors.user_cannot_be_created')
     }
     let newData = { ...data }
     //Just in case
@@ -19,8 +19,8 @@ export const _addUser = async function(name, password, data) {
     delete newData.email
 
     const salt = genRandomString(128)
-    const passObject = sha512( password, salt)
-    const result = await this._db.collection('users').insertOne({name: userName, password: passObject})
+    const passObject = sha512(password, salt)
+    const result = await this._db.collection('users').insertOne({ name: userName, password: passObject })
 
     newData.userId = result['insertedId']
     newData.birthDate = new Date(newData.birthDate)
@@ -75,10 +75,10 @@ export const _getUserWithDetails = async function(name = Math.random() + '') {
 
     const user = await this._getUser(name)
     if (!user) {
-        throw {message: 'User was not found'}
+        throw new Error('errors.user_was_not_found')
     }
-    const details = await this._db.collection('users_details').findOne({ userId: user['_id']})
-    return { user, details: { middleName: '', ...details} }
+    const details = await this._db.collection('users_details').findOne({ userId: user['_id'] })
+    return { user, details: { middleName: '', ...details } }
 }
 
 export const _setLastLogin = async function(name) {
@@ -87,7 +87,7 @@ export const _setLastLogin = async function(name) {
     const user = await this.getUser(name)
 
     if (!user) {
-        throw {message: 'User was not found'}
+        throw new Error('errors.user_was_not_found')
     }
     await this._updateUser(user['_id'], { lastLogin: new Date() })
 }
@@ -95,5 +95,5 @@ export const _setLastLogin = async function(name) {
 export const _updateUser = async function(objectId, data) {
     await this._verifyConnection()
 
-    await this._db.collection('users').updateOne({ _id: objectId },{ $set: data } )
+    await this._db.collection('users').updateOne({ _id: objectId },{ $set: data })
 }

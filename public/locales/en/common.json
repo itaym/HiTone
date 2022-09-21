@@ -12,10 +12,8 @@
       "message": "We use cookies to provide the best experience on our website. This includes cookies for website functionality, to manage our commercial objectives and optimization.",
       "ok": "Got it"
     },
-    "header": {
-    },
-    "footer": {
-    },
+    "header": {},
+    "footer": {},
     "NotificationElement": {
       "from": "from"
     },
@@ -41,6 +39,7 @@
     "reset_password_verify": "verify and set"
   },
   "errors": {
+    "connecting_to_db": "Error establishing a database connection",
     "method_not_allowed": "Method not allowed",
     "some_thing_went_wrong": "Something went wrong, please try again",
     "user_cannot_be_created": "The user already exists",
@@ -96,7 +95,7 @@
     "maximum_date": "Date cannot be larger then {{date}}",
     "middle_name": "Middle name",
     "minimum_date": "Date cannot be smaller then {{date}}",
-    "not_found" : "A user with those credentials was not found!",
+    "not_found": "A user with those credentials was not found!",
     "password": "Password",
     "password_is_required": "Password is required",
     "password_link": "Read about password rules, click here",
