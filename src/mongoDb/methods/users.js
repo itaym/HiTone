@@ -1,7 +1,7 @@
 import { dateFromObjectId } from '@/src/utils'
 import { genRandomString, sha512 } from '@/src/utils/serverOnly'
 
-export const _addUser = async function (name, password, data) {
+export const _addUser = async function(name, password, data) {
     await this._verifyConnection()
 
     if (!name || !password) {
@@ -28,7 +28,7 @@ export const _addUser = async function (name, password, data) {
     await this._db.collection('users_details').insertOne(newData)
     return await this._getUser(userName)
 }
-export const _createDefaultUser = async function () {
+export const _createDefaultUser = async function() {
     await this._verifyConnection()
 
     const collectionUsers = await this._db.collection('users')
@@ -40,21 +40,21 @@ export const _createDefaultUser = async function () {
         await this.addUser(process.env.MONGODB_DEFAULT_USER, process.env.MONGODB_DEFAULT_PASS, data)
     }
 }
-export const _delUser = async function (name) {
+export const _delUser = async function(name) {
     await this._verifyConnection()
 
     const user = await this._db.collection('users').findOne({ name })
     await this._db.collection('users_details').deleteOne({ userId: user['_id'] })
     await this._db.collection('users').deleteOne({ name })
 }
-export const _getUser = async function (name = Math.random() + '') {
+export const _getUser = async function(name = Math.random() + '') {
     await this._verifyConnection()
     return await this._db.collection('users').findOne({ name })
 }
-export const _getUsers = async function () {
+export const _getUsers = async function() {
     await this._verifyConnection()
     let users = await this._db.collection('users').find({}).toArray()
-    users = [...users].map((element) => ({
+    users = [...users].map((element) =>({
         _id: element._id,
         name: element.name,
         created: dateFromObjectId(element._id.toString()),
@@ -62,7 +62,7 @@ export const _getUsers = async function () {
     }))
     return users
 }
-export const _getUserWithDetails = async function (name = Math.random() + '') {
+export const _getUserWithDetails = async function(name = Math.random() + '') {
     await this._verifyConnection()
     const user = await this._getUser(name)
     if (!user) {
@@ -71,7 +71,7 @@ export const _getUserWithDetails = async function (name = Math.random() + '') {
     const details = await this._db.collection('users_details').findOne({ userId: user['_id'] })
     return { user, details: { middleName: '', ...details } }
 }
-export const _setLastLogin = async function (name) {
+export const _setLastLogin = async function(name) {
     await this._verifyConnection()
 
     const user = await this.getUser(name)
@@ -82,8 +82,8 @@ export const _setLastLogin = async function (name) {
     await this._updateUser(user['_id'], { lastLogin: new Date() })
 }
 
-export const _updateUser = async function (objectId, data) {
+export const _updateUser = async function(objectId, data) {
     await this._verifyConnection()
 
-    await this._db.collection('users').updateOne({ _id: objectId }, { $set: data })
+    await this._db.collection('users').updateOne({ _id: objectId },{ $set: data })
 }
