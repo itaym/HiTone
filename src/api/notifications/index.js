@@ -9,14 +9,8 @@ const notifications = async (req, res, user) => {
         case 'DELETE':
             await delNotification(res, req.body._id)
             break
-        case 'PATCH':
-            break
         case 'GET':
             await getNotifications(res, user)
-            break
-        case 'POST':
-            break
-        case 'UPDATE':
             break
         default:
             res.status(httpStatus.METHOD_NOT_ALLOWED)

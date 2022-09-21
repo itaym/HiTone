@@ -2,12 +2,14 @@ import { MongoClient } from 'mongodb'
 import { sleep } from '@/src/utils'
 import { TIME_UNITS } from '@/src/enumerators'
 import { config, up } from 'migrate-mongo'
+
 // noinspection JSUnusedGlobalSymbols
 export const _close = async function() {
     if (this._isConnected) {
         return await this._client.close()
     }
 }
+
 export const _connect = async function() {
     // noinspection JSCheckFunctionSignatures
     this._client = new MongoClient(process.env.MONGODB_URI, { useUnifiedTopology: true, useNewUrlParser: true, })
@@ -25,16 +27,16 @@ export const _connect = async function() {
 
 export const _onConnect = async function() {
     const self = this
-    //todo: remove the debugger
-    if (self._isConnected) debugger
+    //if (self._isConnected) debugger
     self._isConnected = true
-    setTimeout(async function () {
-        await self._migration()
-    }, 1000)
+    setTimeout(async function() {
+        await self._migration() }, 0)
 }
+
 export const _onDisconnect = function() {
     this._isConnected = false
 }
+
 export const _migration = async function() {
     await this._verifyConnection()
     try {
@@ -44,11 +46,13 @@ export const _migration = async function() {
             migrationFileExtension: ".js"
         })
         await up(this.db, this._client)
+        await sleep(1000)
     }
     catch (e) {
         console.log(e)
     }
 }
+
 export const _verifyConnection = async function() {
     if (this._isConnected) return this._isConnected
 
@@ -64,6 +68,7 @@ export const _verifyConnection = async function() {
             timeOut += TIME_UNITS.SECOND / 4
 
             if (this._isConnected) {
+                await sleep(timeOut)
                 return this._isConnected
             }
         }

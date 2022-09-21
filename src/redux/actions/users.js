@@ -20,7 +20,6 @@ export const getUser = createAsyncThunk(
         catch ( e ) { return rejectWithValue(createError(e.message)) }
     }
 )
-
 export const login = createAsyncThunk(
     ACTION_LOGIN,
     async (args, { rejectWithValue }) => {
@@ -36,7 +35,6 @@ export const login = createAsyncThunk(
         }
     }
 )
-
 export const logout = createAsyncThunk(
     ACTION_LOGOUT,
     async ( args, { rejectWithValue }) => {
@@ -51,7 +49,6 @@ export const logout = createAsyncThunk(
         catch (e) { return rejectWithValue(createError(e.message)) }
     }
 )
-
 export const registration = createAsyncThunk(
     ACTION_REGISTRATION,
     async ( args, { rejectWithValue }) => {
@@ -65,7 +62,6 @@ export const registration = createAsyncThunk(
         catch (e) { return rejectWithValue(createError(e.message)) }
     }
 )
-
 export const setUser = createAsyncThunk(
     ACTION_SET_USER,
     async (user) => ({ user })

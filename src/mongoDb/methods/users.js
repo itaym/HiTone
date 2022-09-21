@@ -28,6 +28,7 @@ export const _addUser = async function(name, password, data) {
     await this._db.collection('users_details').insertOne(newData)
     return await this._getUser(userName)
 }
+
 export const _createDefaultUser = async function() {
     await this._verifyConnection()
 
@@ -40,6 +41,7 @@ export const _createDefaultUser = async function() {
         await this.addUser(process.env.MONGODB_DEFAULT_USER, process.env.MONGODB_DEFAULT_PASS, data)
     }
 }
+
 export const _delUser = async function(name) {
     await this._verifyConnection()
 
@@ -47,13 +49,18 @@ export const _delUser = async function(name) {
     await this._db.collection('users_details').deleteOne({ userId: user['_id'] })
     await this._db.collection('users').deleteOne({ name })
 }
+
 export const _getUser = async function(name = Math.random() + '') {
     await this._verifyConnection()
-    return await this._db.collection('users').findOne({ name })
+
+    return await this._db.collection('users').findOne({name})
 }
+
 export const _getUsers = async function() {
     await this._verifyConnection()
+
     let users = await this._db.collection('users').find({}).toArray()
+
     users = [...users].map((element) =>({
         _id: element._id,
         name: element.name,
@@ -62,8 +69,10 @@ export const _getUsers = async function() {
     }))
     return users
 }
+
 export const _getUserWithDetails = async function(name = Math.random() + '') {
     await this._verifyConnection()
+
     const user = await this._getUser(name)
     if (!user) {
         throw new Error('errors.user_was_not_found')
@@ -71,6 +80,7 @@ export const _getUserWithDetails = async function(name = Math.random() + '') {
     const details = await this._db.collection('users_details').findOne({ userId: user['_id'] })
     return { user, details: { middleName: '', ...details } }
 }
+
 export const _setLastLogin = async function(name) {
     await this._verifyConnection()
 

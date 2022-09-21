@@ -5,9 +5,9 @@ const sha512 = function(password, salt) {
     hash.update(password)
     const value = hash.digest('hex')
     return {
-        salt:salt,
-        hash:value
-    };
+        salt: salt,
+        hash: value
+    }
 }
 
 export default sha512
