@@ -22,6 +22,6 @@ module.exports = {
                 validator: resetPasswordSchema.validator,
             }
         )
-        await MongoDb.db.collection('users_details').createIndex(resetPasswordIndex.field, resetPasswordIndex.options)
+        await MongoDb.db.collection('reset_password').createIndex(resetPasswordIndex.field, resetPasswordIndex.options)
     }
 }
