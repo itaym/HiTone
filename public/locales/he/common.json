@@ -45,6 +45,9 @@
     "verify_password_not_found": "תהליך אימות הסיסמא למשתמש הזה לא בנמצא"
   },
   "pages": {
+    "artist_page": {
+      "title": "{{name}}"
+    },
     "home": {
       "title": "ברוך הבא לעולם של HiTone"
     },

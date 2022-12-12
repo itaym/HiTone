@@ -1,4 +1,4 @@
-module.exports =  {
+module.exports = {
     notifications: {
         field: { "to": 1, "status": 1 },
     },
@@ -14,4 +14,8 @@ module.exports =  {
         field: { userId: 1 },
         options: { unique: true },
     },
+    artists: {
+        field: { name: 1 },
+    },
+
 }
