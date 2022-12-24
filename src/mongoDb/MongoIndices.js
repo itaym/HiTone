@@ -17,5 +17,8 @@ module.exports = {
     artists: {
         field: { name: 1 },
     },
+    genres: {
+        field: { name: 1 }
+    }
 
 }

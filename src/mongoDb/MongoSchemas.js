@@ -38,6 +38,22 @@ module.exports = {
             }
         }
     },
+    genres: {
+        validator: {
+            $jsonSchema: {
+                bsonType: "object",
+                required: ["name"],
+                properties: {
+                    name: {
+                        bsonType: "string",
+                        minLength: 2,
+                        maxLength: 50,
+                        description: "category of artistic genre"
+                    }
+                }
+            }
+        }
+    },
     notifications: {
         validator: {
             $jsonSchema: {
