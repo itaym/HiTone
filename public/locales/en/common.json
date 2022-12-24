@@ -47,6 +47,9 @@
     "verify_password_not_found": "Password verification process to that user was not found"
   },
   "pages": {
+    "artist_page": {
+      "title": "{{name}}"
+    },
     "home": {
       "title": "Home Hello World"
     },

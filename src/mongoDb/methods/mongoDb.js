@@ -68,7 +68,8 @@ export const _verifyConnection = async function() {
             timeOut += TIME_UNITS.SECOND / 4
 
             if (this._isConnected) {
-                await sleep(timeOut)
+                // todo: check why sleep here
+                // await sleep(timeOut)
                 return this._isConnected
             }
         }

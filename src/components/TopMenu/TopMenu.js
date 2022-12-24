@@ -14,22 +14,22 @@ const TopMenu = () => {
     return (
         <ul className={styles.menu}>
             <li className={styles.menuItem}>
-                <Link  href="/">
+                <Link href="/">
                     <a><div className={styles.logo} /></a>
                 </Link>
             </li>
             <li className={styles.menuItem}>
-                <Link  href="/">
+                <Link href="/">
                     <a>{t('home')}</a>
                 </Link>
             </li>
             <li className={styles.menuItem}>
-                <Link  href="/">
+                <Link href="/">
                     <a>{t('about')}</a>
                 </Link>
             </li>
             <li className={styles.menuItem}>
-                <Link  href="/">
+                <Link href="/">
                     <a>{t('contact')}</a>
                 </Link>
             </li>
@@ -39,6 +39,12 @@ const TopMenu = () => {
                     <Link href="/login">
                         <a>{t('login')}</a>
                     </Link>}
+            </li>
+            <li className={styles.menuItem}>
+                {user._id ?
+                    <Link href="/artist-profile">
+                        <a>{t('artist-profile')}</a>
+                    </Link> : null}
             </li>
             <li className={styles.menuItem}>
                 {!user._id ?
