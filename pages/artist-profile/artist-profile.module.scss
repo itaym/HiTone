@@ -1,0 +1,35 @@
+.main {
+  background-color: rgb(188, 188, 188);
+  border-radius: 16px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.name {
+  margin-bottom: 30px;
+  color: rgb(16, 16, 16);
+}
+
+.imageAndDescription {
+  display: flex;
+}
+.imgBox {
+  margin: 16px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+
+  .artistImg {
+    width: 50%;
+  }
+}
+
+.description {
+  flex: 1;
+  margin: 16px 70px 0px 0px;
+  color: rgb(16, 16, 16);
+}
