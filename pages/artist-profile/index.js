@@ -42,7 +42,7 @@ const ArtistProfile = ({ user, artist, singles, description }) => {
                             <img className={styles.artistImg} src="/images/itay-img.png" alt="artist-img" />
                         </div>
                         <p className={styles.description}>{description}</p>
-                    </div>S
+                    </div>
                 </div>
             </div>
         </>
