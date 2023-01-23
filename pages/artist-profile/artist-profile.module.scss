@@ -1,6 +1,4 @@
 .main {
-  background-color: rgb(188, 188, 188);
-  border-radius: 16px;
   margin-top: 20px;
   display: flex;
   flex-direction: column;
@@ -9,7 +7,8 @@
 }
 .name {
   margin-bottom: 30px;
-  color: rgb(16, 16, 16);
+  color: var(--color-white);
+  font-size: 4rem;
 }
 
 .imageAndDescription {
@@ -31,5 +30,6 @@
 .description {
   flex: 1;
   margin: 16px 70px 0px 0px;
-  color: rgb(16, 16, 16);
+  color: var(--color-white);
+  font-size: 1.5rem;
 }
