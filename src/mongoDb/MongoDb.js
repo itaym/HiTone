@@ -1,6 +1,7 @@
 import * as mongoDb from '@/src/MongoDb/methods/mongoDb'
 import * as notifications from '@/src/MongoDb/methods/notifications'
 import * as resetPassword from '@/src/MongoDb/methods/resetPassword'
+import * as artists from '@/src/mongoDb/methods/artists'
 import * as users from '@/src/mongoDb/methods/users'
 
 // noinspection JSUnusedGlobalSymbols
@@ -27,6 +28,7 @@ class MongoDb {
         this._setLastLogin = users._setLastLogin
         this._updateUser = users._updateUser
         this._verifyConnection = mongoDb._verifyConnection
+        this._getArtistProfile = artists._getArtistProfile
     }
     get connected() {
         return this._isConnected
@@ -88,6 +90,10 @@ class MongoDb {
     async verifyConnection() {
         return await this._verifyConnection()
     }
+    async getArtistProfile(name) {
+        return await this._getArtistProfile(name)
+    }
+
 }
 
 if (!process['_mongo_db']) {

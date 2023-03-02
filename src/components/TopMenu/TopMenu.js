@@ -42,7 +42,7 @@ const TopMenu = () => {
             </li>
             <li className={styles.menuItem}>
                 {user._id ?
-                    <Link href="/artist-profile">
+                    <Link href="/artist-profile/:name">
                         <a>{t('artist-profile')}</a>
                     </Link> : null}
             </li>
